@@ -1,0 +1,154 @@
+#include <new>
+
+using namespace std;
+
+#include "PrecondViolatedExcep.h"
+
+template <typename ItemType>
+LinkedQueue<ItemType>::LinkedQueue()
+  : backPtr(nullptr),
+    frontPtr(nullptr),
+    count(0){
+    }
+
+template <typename ItemType>
+LinkedQueue<ItemType>::LinkedQueue(const LinkedQueue<ItemType>& aQueue) {
+
+  if (aQueue.frontPtr == nullptr) {
+    frontPtr = nullptr;
+    backPtr = nullptr;
+  }
+  else {
+    Node<ItemType>* aQueuePtr = aQueue.frontPtr;
+
+    try {
+      frontPtr = new Node<ItemType>();
+      frontPtr->setItem(aQueuePtr->getItem() );
+
+      backPtr = frontPtr;
+
+      aQueuePtr = aQueuePtr->getNext();
+
+      while (aQueuePtr != nullptr) {
+	ItemType nextItem = aQueuePtr->getItem();
+
+	Node<ItemType>* newNodePtr = new Node<ItemType>(nextItem);
+
+	backPtr->setNext(newNodePtr);
+
+	backPtr = backPtr->getNext();
+
+	aQueuePtr = aQueuePtr->getNext();
+      }
+
+      backPtr->setNext(nullptr);
+    }
+    catch (const bad_alloc&) {
+      while (!isEmpty() ) {
+	dequeue();
+      }
+      throw;
+    }
+  }
+}
+
+template <typename ItemType>
+LinkedQueue<ItemType>::~LinkedQueue() {
+
+  while (!isEmpty() ) {
+    dequeue();
+  }
+}
+
+template <typename ItemType>
+bool LinkedQueue<ItemType>::isEmpty() const {
+
+  return frontPtr == nullptr;
+}
+
+template <typename ItemType>
+bool LinkedQueue<ItemType>::enqueue(const ItemType& newEntry) {
+
+  bool ableToEnqueue = true;
+
+  try {
+    Node<ItemType>* newNodePtr = new Node<ItemType>(newEntry);
+
+    if (isEmpty() ) {
+      frontPtr = newNodePtr;
+    }
+    else {
+      backPtr->setNext(newNodePtr);
+    }
+
+    backPtr = newNodePtr;
+  }
+  catch (const bad_alloc&) {
+    ableToEnqueue = false;
+  }
+  if(ableToEnqueue)
+    {
+      //      count++;
+    }
+
+  return ableToEnqueue;
+}
+
+template <typename ItemType>
+bool LinkedQueue<ItemType>::dequeue() {
+
+  bool result = false;
+
+  if (!isEmpty() ) {
+    Node<ItemType>* nodeToDeletePtr = frontPtr;
+
+    if (frontPtr == backPtr) {
+      frontPtr = nullptr;
+      backPtr = nullptr;
+    }
+    else {
+      frontPtr = frontPtr->getNext();
+    }
+
+    nodeToDeletePtr->setNext(nullptr);
+    delete nodeToDeletePtr;
+    nodeToDeletePtr = nullptr;
+
+    result = true;
+  }
+  if(result)
+    {
+      count--;
+    }
+
+  return result;
+}
+
+template <typename ItemType>
+ItemType LinkedQueue<ItemType>::peekFront() const {
+
+  if (isEmpty() ) {
+    throw PrecondViolatedExcep("peekFront() called on an empty queue.");
+  }
+
+  return frontPtr->getItem();
+}
+template <typename ItemType>
+int LinkedQueue<ItemType>::getLength() const
+{
+  /*
+  Node<ItemType>* curPtr = frontPtr;
+  int count = 0;
+  while(curPtr != nullptr)
+    {
+      count++;
+      curPtr = curPtr -> getNext();
+    }
+  */
+  return count;
+}
+template <typename ItemType>
+void LinkedQueue<ItemType>::setCount(const int theCount) 
+{
+  count = theCount;
+}

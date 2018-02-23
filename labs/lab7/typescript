@@ -1,0 +1,113 @@
+Script started on Tue 01 Dec 2015 01:09:46 PM CST
+[4makka[24m:[1m~/CS1521/labs/lab7[0m% pwd
+/home/csugrads/qinxx215/CS1521/labs/lab7
+[4makka[24m:[1m~/CS1521/labs/lab7[0m% ls -l
+total 32
+-rwxrwxr-x 1 qinxx215 qinxx215 14782 Nov 24 15:31 a.out
+drwxrwxr-x 3 qinxx215 qinxx215  4096 Nov 30 23:13 build
+-rw-rw-r-- 1 qinxx215 qinxx215   104 Nov 24 15:34 CMakeLists.txt
+-rw-rw-r-- 1 qinxx215 qinxx215  1459 Nov 30 23:13 main.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  1463 Nov 30 23:13 main.cpp~
+-rw-rw-r-- 1 qinxx215 qinxx215     0 Dec  1 13:09 typescript
+[4makka[24m:[1m~/CS1521/labs/lab7[0m% cat CMakeLists.txt 
+project(lab7)
+
+set(CMAKE_CXX_FLAGS"$ {CMAKE_CXX_FLAGS} -Wall -std=c+=11")
+
+add_executable(test main.cpp)[4makka[24m:[1m~/CS1521/labs/lab7[0m% cat -n m
+main.cpp~  main.cpp   
+[4makka[24m:[1m~/CS1521/labs/lab7[0m% cat -n main.cpp
+     1	#include <iostream>
+     2	#include <string>
+     3	#include <algorithm>
+     4	using namespace std;
+     5	
+     6	
+     7	void displayOneItem(char& itemToDisplay)
+     8	{
+     9	  cout << itemToDisplay << endl;
+    10	}
+    11	
+    12	void moveUp5 (char& item)
+    13	{
+    14	  if((int)item >= 48 && (int)item <= 52)
+    15	    {
+    16	      item = (int)item + 5;
+    17	    }
+    18	  else if((int)item >= 53 && (int)item <= 57)
+    19	    {
+    20	      item = (int)item -5;
+    21	    }
+    22	}
+    23	void moveUp13(char& item)
+    24	{
+    25	  if((int)item >= 65 && (int)item <= 77)
+    26	    {
+    27	      item = (int)item + 13;
+    28	    }
+    29	  else if((int)item >= 78 && (int)item <= 90)
+    30	    {
+    31	      item = (int)item -13;
+    32	    }
+    33	  else if ((int)item >=97 && (int)item <= 109)
+    34	    {
+    35	      item = (int)item + 13;
+    36	    }
+    37	  else if((int)item >= 110 && (int)item <= 122)
+    38	    {
+    39	      item = (int)item -13;
+    40	    }
+    41	}
+    42	
+    43	
+    44	void encrypted(char& item)
+    45	{
+    46	    if((int)item >= 48 && (int)item <= 57)
+    47	    {
+    48	      moveUp5(item);
+    49	    }
+    50	  else if (((int)item >=65 && (int)item <=89) ||((int)item >= 97 && (int)item <= 122))
+    51	    {
+    52	      moveUp13(item);
+    53	    }
+    54	}
+    55	
+    56	int main()
+    57	{
+    58	  string theString;
+    59	  cout << "Enter the string you want " << endl;
+    60	  getline(cin,theString);
+    61	  cout <<endl
+    62	       <<endl
+    63	       <<endl;
+    64	  cout << "The string you enter is " << endl;
+    65	  cout << theString << endl;
+    66	  for_each(theString.begin(),theString.end(),encrypted);
+    67	  cout << "The string after encrypted " << endl;
+    68	  cout << theString << endl;
+    69	  for_each(theString.begin(),theString.end(),encrypted);
+    70	  cout << "The string after decrypted " << endl;
+    71	  cout << theString << endl;
+    72	}
+[4makka[24m:[1m~/CS1521/labs/lab7[0m% cd build
+[4makka[24m:[1m~/CS1521/labs/lab7/build[0m% make clean
+[4makka[24m:[1m~/CS1521/labs/lab7/build[0m% make
+[100%] [32mBuilding CXX object CMakeFiles/test.dir/main.cpp.o
+[0m[31m[1mLinking CXX executable test
+[0m[100%] Built target test
+[4makka[24m:[1m~/CS1521/labs/lab7/build[0m% ./test
+Enter the string you want 
+Jvgu 9 cnenzrgref V pna svg na ryrcunag, naq jvgu 0 V pna znxr uvz jvttyr uvf gehax. --Wbua iba Arhznaa
+
+
+
+The string you enter is 
+Jvgu 9 cnenzrgref V pna svg na ryrcunag, naq jvgu 0 V pna znxr uvz jvttyr uvf gehax. --Wbua iba Arhznaa
+The string after encrypted 
+With 4 parameters I can fit an elephant, and with 5 I can make him wiggle his trunk. --John von Neumann
+The string after decrypted 
+Jvgu 9 cnenzrgref V pna svg na ryrcunag, naq jvgu 0 V pna znxr uvz jvttyr uvf gehax. --Wbua iba Arhznaa
+[4makka[24m:[1m~/CS1521/labs/lab7/build[0m% exit
+exit
+
+Script done on Tue 01 Dec 2015 01:10:40 PM CST

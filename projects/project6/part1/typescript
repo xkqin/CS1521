@@ -1,0 +1,385 @@
+Script started on Thu 19 Nov 2015 01:42:52 PM CST
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% pwd
+/home/csugrads/qinxx215/CS1521/projects/project6/part1
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -n C
+CMakeLists.txt~  CMakeLists.txt   
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -n CMakeLists.txt[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kls -l
+total 168
+drwxrwxr-x 3 qinxx215 qinxx215 4096 Nov 18 21:45 build
+-rw-rw-r-- 1 qinxx215 qinxx215  211 Nov 15 23:33 CMakeLists.txt
+-rw-rw-r-- 1 qinxx215 qinxx215  209 Nov 15 23:27 CMakeLists.txt~
+-rw-rw-r-- 1 qinxx215 qinxx215 1245 Nov 16 12:44 EventBuilder.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215 1237 Nov 16 12:43 EventBuilder.cpp~
+-rw-r--r-- 1 qinxx215 qinxx215 1273 Nov  4 10:40 EventBuilder.h
+-rw-rw-r-- 1 qinxx215 qinxx215  952 Nov 15 16:58 Event.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  953 Nov 14 15:52 Event.cpp~
+-rw-rw-r-- 1 qinxx215 qinxx215  692 Nov 15 16:56 Event.h
+-rw-rw-r-- 1 qinxx215 qinxx215  685 Nov 14 15:45 Event.h~
+-rw-rw-r-- 1 qinxx215 qinxx215   36 Nov 15 16:57 EventType.h
+-rw-rw-r-- 1 qinxx215 qinxx215   25 Nov 14 15:32 EventType.h~
+-rw-r--r-- 1 qinxx215 qinxx215   16 May 18  2015 input0.dat
+-rw-r--r-- 1 qinxx215 qinxx215    0 May 18  2015 input1.dat
+-rw-r--r-- 1 qinxx215 qinxx215   17 May 18  2015 input2.dat
+-rw-r--r-- 1 qinxx215 qinxx215   23 May 18  2015 input3.dat
+-rw-r--r-- 1 qinxx215 qinxx215   47 May 18  2015 input4.dat
+-rw-r--r-- 1 qinxx215 qinxx215  868 Nov  4 10:49 input5.dat
+-rw-r--r-- 1 qinxx215 qinxx215 1752 Nov  4 10:50 input6.dat
+-rw-r--r-- 1 qinxx215 qinxx215 2940 Nov  4 10:50 input7.dat
+-rw-rw-r-- 1 qinxx215 qinxx215 2315 Nov 14 14:49 LinkedQueue.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  643 Nov 14 14:48 LinkedQueue.h
+-rw-rw-r-- 1 qinxx215 qinxx215 4907 Nov 15 23:28 LinkedSortedList.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215 1734 Nov 15 23:28 LinkedSortedList.h
+-rw-rw-r-- 1 qinxx215 qinxx215  775 Nov 14 15:01 Node.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  424 Nov 14 15:01 Node.h
+-rw-rw-r-- 1 qinxx215 qinxx215  211 Nov 15 16:11 PrecondViolatedExcep.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  470 Nov 15 16:11 PrecondViolatedExcep.h
+-rw-rw-r-- 1 qinxx215 qinxx215  852 Nov 16 10:52 PriorityQueue.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  894 Nov 14 14:50 PriorityQueue.cpp~
+-rw-rw-r-- 1 qinxx215 qinxx215  677 Nov 14 14:49 PriorityQueue.h
+-rw-rw-r-- 1 qinxx215 qinxx215 1566 Nov 14 14:50 PriorityQueueInterface.h
+-rw-r--r-- 1 qinxx215 qinxx215  125 Nov  4 10:37 project6.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215 1275 Nov 14 14:51 QueueInterface.h
+-rw-rw-r-- 1 qinxx215 qinxx215 1479 Nov 18 21:45 Simulation.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215 1453 Nov 17 20:15 Simulation.cpp~
+-rw-r--r-- 1 qinxx215 qinxx215  455 Nov  4 10:37 Simulation.h
+-rw-rw-r-- 1 qinxx215 qinxx215 3222 Nov 15 23:28 SortedListInterface.h
+-rw-r--r-- 1 qinxx215 qinxx215 1665 Nov 16 15:22 Statistics.cpp
+-rw-r--r-- 1 qinxx215 qinxx215 1719 Nov 16 15:21 Statistics.cpp~
+-rw-r--r-- 1 qinxx215 qinxx215  891 Nov  4 10:40 Statistics.h
+-rw-rw-r-- 1 qinxx215 qinxx215   18 Nov 14 15:12 Time.h
+-rw-rw-r-- 1 qinxx215 qinxx215    0 Nov 19 13:42 typescript
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -nC[K C
+CMakeLists.txt~  CMakeLists.txt   
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -n CMakeLists.txt
+     1	project(project6)
+     2	set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
+     3	add_executable(test Event.cpp EventBuilder.cpp  Simulation.cpp 
+     4	                project6.cpp Statistics.cpp PrecondViolatedExcep.cpp)[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -n E
+EventBuilder.cpp~  EventBuilder.h     Event.cpp          Event.h            EventType.h        
+EventBuilder.cpp   Event.cpp~         Event.h~           EventType.h~       
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -n Event.h
+     1	#ifndef _EVENT
+     2	#define _EVENT
+     3	
+     4	#include "Time.h"
+     5	#include "EventType.h"
+     6	
+     7	class Event
+     8	{
+     9	 private:
+    10	  Time time;
+    11	  Time length;
+    12	  int number;
+    13	  EventType type;
+    14	 public:
+    15	  Time getTime() const;
+    16	  Time getLength() const;
+    17	  int getNumber() const;
+    18	  EventType getType() const;
+    19	  void setTime(const Time theTime);
+    20	  void setLength(const Time theLength);
+    21	  void setNumber(const int theNumber);
+    22	  void setType(const EventType theType);
+    23	  bool operator<(const Event& rhs) const;
+    24	  bool operator>(const Event& rhs) const;
+    25	  bool operator<=(const Event& rhs) const;
+    26	  bool operator>=(const Event& rhs) const;
+    27	  bool operator==(const Event& rhs) const;
+    28	  bool operator!=(const Event& rhs) const;
+    29	};
+    30	#endif
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -n Event.h[Kcpp
+     1	#include "Event.h"
+     2	
+     3	Time Event::getTime() const
+     4	{
+     5	  return time;
+     6	}
+     7	Time Event::getLength() const
+     8	{
+     9	  return length;
+    10	}
+    11	int Event::getNumber() const
+    12	{
+    13	  return number;
+    14	}
+    15	EventType Event::getType() const
+    16	{
+    17	  return type;
+    18	}
+    19	void Event::setTime(const Time theTime)
+    20	{
+    21	  time = theTime;
+    22	}
+    23	void Event::setLength(const Time theLength)
+    24	{
+    25	  length = theLength;
+    26	}
+    27	void Event::setNumber(const int theNumber)
+    28	{
+    29	  number = theNumber;
+    30	}
+    31	void Event::setType(const EventType theType)
+    32	{
+    33	  type = theType;
+    34	}
+    35	bool Event::operator<(const Event& rhs) const
+    36	{
+    37	  return time < rhs.time;
+    38	}
+    39	bool Event::operator>(const Event& rhs) const
+    40	{
+    41	  return time > rhs.time;
+    42	}
+    43	bool Event::operator<=(const Event& rhs) const
+    44	{
+    45	  return time <= rhs.time;
+    46	}
+    47	bool Event::operator>=(const Event& rhs) const
+    48	{
+    49	  return time >= rhs.time;
+    50	}
+    51	bool Event::operator==(const Event& rhs) const
+    52	{
+    53	  return time == rhs.time;
+    54	}
+    55	bool Event::operator!=(const Event& rhs) const
+    56	{
+    57	  return time != rhs.time;
+    58	}
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -n Event.cpp[1@T
+EventType.h~  EventType.h   
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -n EventType.h.cpp.cpp[K[K[K[K
+     1	enum EventType {ARRIVAL,DEPARTURE};
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -n EventType.h.h[K.h[K.h[K.h[K.h[K.h[K.h[K.h[K.h[KT.hime.h .h
+     1	typedef int Time;
+cat: .h: No such file or directory
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -n Time.h .h[K[K
+     1	typedef int Time;
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -n s[KE
+EventBuilder.cpp~  EventBuilder.h     Event.cpp          Event.h            EventType.h        
+EventBuilder.cpp   Event.cpp~         Event.h~           EventType.h~       
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -n EventB
+EventBuilder.cpp~  EventBuilder.cpp   EventBuilder.h     
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -n EventBuilder.h
+     1	#ifndef _EVENT_BUILDER
+     2	#define _EVENT_BUILDER
+     3	
+     4	#include <fstream>
+     5	
+     6	using namespace std;
+     7	
+     8	#include "Event.h"
+     9	
+    10	class EventBuilder {
+    11	private:
+    12	   ifstream inputFile;
+    13	
+    14	public:
+    15	   /** Three things must happen to create an EventBuilder:
+    16	    *  1) Prompt the user for the name of an input file
+    17	    *  2) Attempt to open this file on the 'inputFile' data member
+    18	    *  3) If the file doesn't open, repeat steps 1 and 2 */
+    19	   EventBuilder();
+    20	
+    21	   /** Create and return an event with members:
+    22	    *  type == ARRIVAL
+    23	    *  number == 'number'
+    24	    *  time == time read from 'inputFile'
+    25	    *  length == transaction length read from 'inputFile'
+    26	    *
+    27	    *  If 'inputFile' has been completely read, then set the return
+    28	    *  event.number field to zero (as no event will be numbered zero).
+    29	    *  This can then be used to tell when the external file is either
+    30	    *  empty or EOF has been reached. */
+    31	   Event createArrivalEvent(const int number);
+    32	
+    33	   /** Create and return an event with members:
+    34	    *  type == DEPATURE
+    35	    *  number == 'number'
+    36	    *  time == 'currentEventTime' + 'transactionLength' */
+    37	   Event createDepartureEvent(const Time& currentEventTime,
+    38	                              const Time& transactionLength,
+    39	                              const int number);
+    40	
+    41	};
+    42	
+    43	#endif
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -n EventBuilder.h[Kcpp
+     1	#include <string>
+     2	#include <iostream>
+     3	#include <fstream>
+     4	#include "EventBuilder.h"
+     5	using namespace std;
+     6	
+     7	EventBuilder::EventBuilder()
+     8	{
+     9	  string fileName;
+    10	  cout << "Enter a file name that you want to input " << endl;
+    11	  cin >> fileName;
+    12	  inputFile.open(fileName.c_str());
+    13	  while(!inputFile)
+    14	    {
+    15	      cerr << " File "
+    16		   << fileName
+    17		   << " failed to open for input."
+    18		   << endl;
+    19	      cout << " Enter a right file name "
+    20		   << endl;
+    21	      cin >> fileName;
+    22	      inputFile.open(fileName.c_str());
+    23	    }
+    24	}
+    25	Event EventBuilder::createArrivalEvent(const int number)
+    26	{
+    27	  Event arrival;
+    28	  arrival.setType(ARRIVAL);
+    29	  int time, length;
+    30	  if(inputFile >> time >> length)
+    31	    {
+    32	      arrival.setNumber(number);
+    33	      arrival.setTime(time);
+    34	      arrival.setLength(length);
+    35	      //      cout << time << 's' << length << endl;
+    36	    }
+    37	  else
+    38	    {
+    39	      //  cout << "End of the File" << endl;
+    40	      arrival.setNumber(0);
+    41	    }
+    42	  return arrival;
+    43	} 
+    44	
+    45	Event EventBuilder::createDepartureEvent(const Time& currentEventTime,
+    46						 const Time& transactionLength,
+    47						 const int number)
+    48	{
+    49	  Event departure;
+    50	  departure.setNumber(number);
+    51	  departure.setTime(currentEventTime + transactionLength);
+    52	  departure.setType(DEPARTURE);
+    53	  
+    54	  return departure;
+    55	}
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -n S
+Simulation.cpp~        Simulation.h           Statistics.cpp~        Statistics.h           
+Simulation.cpp         SortedListInterface.h  Statistics.cpp         
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -n Si
+Simulation.cpp~  Simulation.cpp   Simulation.h     
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cat -n Simulation.cpp
+     1	#include"Simulation.h"
+     2	#include <iostream>
+     3	//using namespace std;
+     4	Simulation::Simulation()
+     5	{
+     6	}
+     7	Simulation::~Simulation()
+     8	{
+     9	}
+    10	
+    11	void Simulation::simulate()
+    12	{
+    13	  Event curEvent = eventBuilder.createArrivalEvent(1);
+    14	  // cout << "Event" << currentEvent.getNumber() << endl;
+    15	  //  if(currentEvent.getNumber() != 0)
+    16	  // {
+    17	      events.add(curEvent);
+    18	      // }
+    19	  while( !events.isEmpty())
+    20	    {
+    21	      currentEvent = events.peek();
+    22	      if(currentEvent.getType() == ARRIVAL)
+    23		{
+    24		  processArrival();
+    25		}
+    26	      else 
+    27		{
+    28		  processDeparture();
+    29		}
+    30	      stats.addEvent(currentEvent);
+    31	    }
+    32	  stats.reportStats();
+    33	}
+    34	
+    35	
+    36	void Simulation::processArrival()
+    37	{
+    38	  bool first = line.isEmpty();
+    39	  //  cout << "Processing arrival ";
+    40	  line.enqueue(currentEvent);
+    41	  events.remove();
+    42	  if(first)
+    43	    {
+    44	      Event Dep = eventBuilder.createDepartureEvent(currentEvent.getTime(),
+    45							    currentEvent.getLength(),
+    46							    currentEvent.getNumber());
+    47	      events.add(Dep);
+    48	    }
+    49	  Event newArrival = eventBuilder.createArrivalEvent(currentEvent.getNumber()+1);
+    50	  if(newArrival.getNumber() != 0)
+    51	    {
+    52	      events.add(newArrival);
+    53	    }
+    54	}
+    55	void Simulation::processDeparture()
+    56	{
+    57	  line.dequeue();      
+    58	  events.remove();
+    59	  cout << line.isEmpty();
+    60	  if( !line.isEmpty())
+    61	    {
+    62	      Event Dep,done;
+    63	      done = line.peekFront();
+    64	      
+    65	      Dep = eventBuilder.createDepartureEvent(currentEvent.getTime(),
+    66						      done.getLength(),
+    67						      done.getNumber());
+    68	      events.add(Dep);
+    69	    }
+    70	}
+    71	      
+    72	
+[4makka[24m:[1m~/CS1521/projects/project6/part1[0m% cd build
+[4makka[24m:[1m~/CS1521/projects/project6/part1/build[0m% make
+[100%] Built target test
+[4makka[24m:[1m~/CS1521/projects/project6/part1/build[0m% make clean
+[4makka[24m:[1m~/CS1521/projects/project6/part1/build[0m% make
+[ 16%] [32mBuilding CXX object CMakeFiles/test.dir/Event.cpp.o
+[0m[ 33%] [32mBuilding CXX object CMakeFiles/test.dir/EventBuilder.cpp.o
+[0m[ 50%] [32mBuilding CXX object CMakeFiles/test.dir/Simulation.cpp.o
+[0m[ 66%] [32mBuilding CXX object CMakeFiles/test.dir/project6.cpp.o
+[0m[ 83%] [32mBuilding CXX object CMakeFiles/test.dir/Statistics.cpp.o
+[0m[100%] [32mBuilding CXX object CMakeFiles/test.dir/PrecondViolatedExcep.cpp.o
+[0m[31m[1mLinking CXX executable test
+[0m[100%] Built target test
+[4makka[24m:[1m~/CS1521/projects/project6/part1/build[0m% ./test
+Enter a file name that you want to input 
+p input4.dat
+Processing arrival event 1 at time: 1
+Processing arrival event 2 at time: 2
+Processing arrival event 3 at time: 4
+0Processing departure event 1 at time: 6 event 1 waited: 0
+0Processing departure event 2 at time: 11 event 2 waited: 4
+1Processing departure event 3 at time: 16 event 3 waited: 7
+Processing arrival event 4 at time: 20
+Processing arrival event 5 at time: 22
+Processing arrival event 6 at time: 24
+0Processing departure event 4 at time: 25 event 4 waited: 0
+Processing arrival event 7 at time: 26
+Processing arrival event 8 at time: 28
+Processing arrival event 9 at time: 30
+0Processing departure event 5 at time: 30 event 5 waited: 3
+0Processing departure event 6 at time: 35 event 6 waited: 6
+0Processing departure event 7 at time: 40 event 7 waited: 9
+0Processing departure event 8 at time: 45 event 8 waited: 12
+1Processing departure event 9 at time: 50 event 9 waited: 15
+Processing arrival event 10 at time: 88
+1Processing departure event 10 at time: 91 event 10 waited: 0
+Final Statistics:
+  Total number of people processed: 10
+  Total wait time: 56
+  Average amount of time spent waiting: 5.6
+[4makka[24m:[1m~/CS1521/projects/project6/part1/build[0m% exit
+exit
+
+Script done on Thu 19 Nov 2015 01:44:22 PM CST

@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/csugrads/qinxx215/CS1521/projects/project1/find.cpp
+find.h
+/home/csugrads/qinxx215/CS1521/projects/project1/find.h
+iostream
+-
+
+/home/csugrads/qinxx215/CS1521/projects/project1/find.h
+
+/home/csugrads/qinxx215/CS1521/projects/project1/main.cpp
+iostream
+-
+find.h
+/home/csugrads/qinxx215/CS1521/projects/project1/find.h
+

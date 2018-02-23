@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/csugrads/qinxx215/CS1521/labs/lab1/board.cpp
+iostream
+-
+board.h
+/home/csugrads/qinxx215/CS1521/labs/lab1/board.h
+
+/home/csugrads/qinxx215/CS1521/labs/lab1/board.h
+
+/home/csugrads/qinxx215/CS1521/labs/lab1/game.cpp
+iostream
+-
+game.h
+/home/csugrads/qinxx215/CS1521/labs/lab1/game.h
+
+/home/csugrads/qinxx215/CS1521/labs/lab1/game.h
+board.h
+/home/csugrads/qinxx215/CS1521/labs/lab1/board.h
+player.h
+/home/csugrads/qinxx215/CS1521/labs/lab1/player.h
+
+/home/csugrads/qinxx215/CS1521/labs/lab1/main.cpp
+iostream
+-
+cstdlib
+-
+game.h
+/home/csugrads/qinxx215/CS1521/labs/lab1/game.h
+
+/home/csugrads/qinxx215/CS1521/labs/lab1/player.cpp
+iostream
+-
+player.h
+/home/csugrads/qinxx215/CS1521/labs/lab1/player.h
+board.h
+/home/csugrads/qinxx215/CS1521/labs/lab1/board.h
+
+/home/csugrads/qinxx215/CS1521/labs/lab1/player.h
+

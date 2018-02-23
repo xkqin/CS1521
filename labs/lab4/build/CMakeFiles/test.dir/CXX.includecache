@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/csugrads/qinxx215/CS1521/labs/lab4/ArrayList.cpp
+PrecondViolatedExcep.h
+/home/csugrads/qinxx215/CS1521/labs/lab4/PrecondViolatedExcep.h
+
+/home/csugrads/qinxx215/CS1521/labs/lab4/ArrayList.h
+ListInterface.h
+/home/csugrads/qinxx215/CS1521/labs/lab4/ListInterface.h
+ArrayList.cpp
+/home/csugrads/qinxx215/CS1521/labs/lab4/ArrayList.cpp
+
+/home/csugrads/qinxx215/CS1521/labs/lab4/ListInterface.h
+
+/home/csugrads/qinxx215/CS1521/labs/lab4/PrecondViolatedExcep.h
+stdexcept
+-
+string
+-
+
+/home/csugrads/qinxx215/CS1521/labs/lab4/getPosition.cpp
+
+/home/csugrads/qinxx215/CS1521/labs/lab4/getPosition.h
+ArrayList.h
+/home/csugrads/qinxx215/CS1521/labs/lab4/ArrayList.h
+getPosition.cpp
+/home/csugrads/qinxx215/CS1521/labs/lab4/getPosition.cpp
+
+/home/csugrads/qinxx215/CS1521/labs/lab4/main.cpp
+iostream
+-
+cstdlib
+-
+getPosition.h
+/home/csugrads/qinxx215/CS1521/labs/lab4/getPosition.h
+

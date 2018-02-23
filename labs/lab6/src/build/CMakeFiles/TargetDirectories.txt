@@ -1,0 +1,1 @@
+/home/csugrads/qinxx215/CS1521/labs/lab6/src/build/CMakeFiles/test.dir

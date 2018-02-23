@@ -1,0 +1,1 @@
+/usr/bin/c++    -Wall -std=c++11    CMakeFiles/test.dir/Disc.cpp.o CMakeFiles/test.dir/main.cpp.o CMakeFiles/test.dir/DiscList.cpp.o CMakeFiles/test.dir/Track.cpp.o CMakeFiles/test.dir/PrecondViolatedExcep.cpp.o  -o test -rdynamic 

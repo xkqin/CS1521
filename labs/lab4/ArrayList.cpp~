@@ -1,0 +1,108 @@
+//#include "PrecondViolatedExcep.h"
+
+template <typename ItemType>
+ArrayList<ItemType>::ArrayList()
+  : itemCount(0),
+    maxItems(DEFAULT_CAPACITY) {
+    }
+
+template <typename ItemType>
+bool ArrayList<ItemType>::isEmpty() const {
+
+  return itemCount == 0;
+}
+
+template <typename ItemType>
+int ArrayList<ItemType>::getLength() const {
+
+  return itemCount;
+}
+
+template <typename ItemType>
+bool ArrayList<ItemType>::insert(const int newPosition,
+                                 const ItemType& newEntry) {
+
+   bool ableToInsert = newPosition >= 1 &&
+      newPosition <= itemCount + 1 &&
+     itemCount < maxItems;
+
+   if (ableToInsert) {
+     // Make room for newEntry by shifting all entries at positions
+     // >= newPosition toward the end of the array.
+     for (int pos = itemCount; pos >= newPosition; --pos) {
+       items[pos] = items[pos - 1];
+     }
+
+     // Insert new entry.
+     items[newPosition - 1] = newEntry;
+
+     ++itemCount;
+   }
+
+   return ableToInsert;
+}
+
+template <typename ItemType>
+bool ArrayList<ItemType>::remove(const int position) {
+
+   bool ableToRemove = position >= 1 &&
+     position <= itemCount;
+
+   if (ableToRemove) {
+     // Remove entry by shifting all entries after the one at
+     // position toward the beginning of the array.
+     for (int fromIndex = position, toIndex = fromIndex - 1;
+	  fromIndex < itemCount;
+	  ++fromIndex, ++toIndex) {
+       items[toIndex] = items[fromIndex];
+     }
+     --itemCount;
+   }
+
+   return ableToRemove;
+}
+
+template <typename ItemType>
+void ArrayList<ItemType>::clear() {
+
+  itemCount = 0;
+}
+
+template <typename ItemType>
+ItemType ArrayList<ItemType>::getEntry(const int position) const {
+
+   bool ableToGet = position >= 1 &&
+     position <= itemCount;
+
+   if (!ableToGet) {
+     string message = "ArrayList::getEntry() called with an empty ";
+     message += "list or an invalid position.";
+
+     throw PrecondViolatedExcep(message);
+   }
+
+   return items[position - 1];
+}
+
+template <typename ItemType>
+void ArrayList<ItemType>::setEntry(const int position,
+                                   const ItemType& newEntry) {
+
+   bool ableToSet = position >= 1 &&
+     position <= itemCount;
+
+   if (ableToSet) {
+     items[position - 1] = newEntry;
+   }
+   else {
+     string message = "ArrayList::setEntry() called with an empty ";
+     message += "list or an invalid position.";
+
+     throw PrecondViolatedExcep(message);
+   }
+}
+
+template <typename ItemType>
+int ArrayList::getPosition(const ArrayList& aList, int value)
+{
+  if(aList.im)

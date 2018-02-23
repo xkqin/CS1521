@@ -1,0 +1,275 @@
+     1	#include <iostream>
+     2	
+     3	using namespace std;
+     4	
+     5	#include "Rational.h"
+     6	
+     7	int gcd(const int&,
+     8	        const int&);
+     9	
+    10	Rational::Rational(int num,
+    11	                   int den)
+    12	   : numerator(num),
+    13	     denominator(den) {
+    14	
+    15	   lowTerms();
+    16	}
+    17	
+    18	Rational::Rational(const Rational& rhs)
+    19	   : numerator(rhs.numerator),
+    20	     denominator(rhs.denominator) {
+    21	}
+    22	
+    23	Rational::~Rational() {
+    24	}
+    25	
+    26	Rational& Rational::operator++() {
+    27	
+    28	   numerator += denominator;
+    29	
+    30	   return *this;
+    31	}
+    32	
+    33	Rational Rational::operator++(int) {
+    34	
+    35	   Rational temp = *this;
+    36	
+    37	   numerator += denominator;
+    38	
+    39	   return temp;
+    40	}
+    41	
+    42	Rational& Rational::operator--() {
+    43	
+    44	   numerator -= denominator;
+    45	
+    46	   return *this;
+    47	}
+    48	
+    49	Rational Rational::operator--(int) {
+    50	
+    51	   Rational temp = *this;
+    52	
+    53	   numerator -= denominator;
+    54	
+    55	   return temp;
+    56	}
+    57	
+    58	Rational& Rational::operator=(const Rational& rhs) {
+    59	
+    60	   numerator = rhs.numerator;
+    61	   denominator = rhs.denominator;
+    62	
+    63	   return *this;
+    64	}
+    65	
+    66	Rational& Rational::operator=(const int& rhs) {
+    67	
+    68	   numerator = rhs;
+    69	   denominator = 1;
+    70	
+    71	   return *this;
+    72	}
+    73	
+    74	Rational::operator double() const {
+    75	
+    76	   return (double)numerator / (double)denominator;
+    77	}
+    78	
+    79	Rational& Rational::operator+=(const Rational& rhs) {
+    80	
+    81	   numerator = numerator * rhs.denominator + denominator * rhs.numerator;
+    82	   denominator = denominator * rhs.denominator;
+    83	
+    84	   lowTerms();
+    85	
+    86	   return *this;
+    87	}
+    88	
+    89	Rational& Rational::operator-=(const Rational& rhs) {
+    90	
+    91	   numerator = numerator * rhs.denominator - denominator * rhs.numerator;
+    92	   denominator = denominator * rhs.denominator;
+    93	
+    94	   lowTerms();
+    95	
+    96	   return *this;
+    97	}
+    98	
+    99	Rational& Rational::operator*=(const Rational& rhs) {
+   100	
+   101	   numerator = numerator * rhs.numerator;
+   102	   denominator = denominator * rhs.denominator;
+   103	
+   104	   lowTerms();
+   105	
+   106	   return *this;
+   107	}
+   108	
+   109	Rational& Rational::operator/=(const Rational& rhs) {
+   110	
+   111	   numerator = numerator * rhs.denominator;
+   112	   denominator = denominator * rhs.numerator;
+   113	
+   114	   lowTerms();
+   115	
+   116	   return *this;
+   117	}
+   118	
+   119	bool operator<(const Rational& lhs,
+   120	               const Rational& rhs) {
+   121	
+   122	   return ((double)lhs.numerator / (double)lhs.denominator) <
+   123	      ((double)rhs.numerator / (double)rhs.denominator);
+   124	}
+   125	
+   126	bool operator>(const Rational& lhs,
+   127	               const Rational& rhs) {
+   128	
+   129	   return ((double)lhs.numerator / (double)lhs.denominator) >
+   130	      ((double)rhs.numerator / (double)rhs.denominator);
+   131	}
+   132	
+   133	   bool operator<=(const Rational& lhs,
+   134	                   const Rational& rhs) {
+   135	
+   136	   return ((double)lhs.numerator / (double)lhs.denominator) <=
+   137	      ((double)rhs.numerator / (double)rhs.denominator);
+   138	}
+   139	
+   140	bool operator>=(const Rational& lhs,
+   141	                const Rational& rhs) {
+   142	
+   143	   return ((double)lhs.numerator / (double)lhs.denominator) >=
+   144	      ((double)rhs.numerator / (double)rhs.denominator);
+   145	}
+   146	
+   147	bool operator==(const Rational& lhs,
+   148	                const Rational& rhs) {
+   149	
+   150	   return lhs.numerator == rhs.numerator &&
+   151	      lhs.denominator == rhs.denominator;
+   152	}
+   153	
+   154	bool operator!=(const Rational& lhs,
+   155	                const Rational& rhs) {
+   156	
+   157	   return !(lhs == rhs);
+   158	}
+   159	
+   160	const Rational operator+(const Rational& lhs,
+   161	                         const Rational& rhs) {
+   162	
+   163	   Rational sum(lhs.numerator * rhs.denominator + lhs.denominator * rhs.numerator,
+   164	                lhs.denominator * rhs.denominator);
+   165	
+   166	   sum.lowTerms();
+   167	
+   168	   return sum;
+   169	}
+   170	
+   171	const Rational operator-(const Rational& lhs,
+   172	                         const Rational& rhs) {
+   173	
+   174	   Rational dif(lhs.numerator * rhs.denominator - lhs.denominator * rhs.numerator,
+   175	                lhs.denominator * rhs.denominator);
+   176	
+   177	   dif.lowTerms();
+   178	
+   179	   return dif;
+   180	}
+   181	
+   182	const Rational operator*(const Rational& lhs,
+   183	                         const Rational& rhs) {
+   184	
+   185	   Rational prod(lhs.numerator * rhs.numerator,
+   186	                lhs.denominator * rhs.denominator);
+   187	
+   188	   prod.lowTerms();
+   189	
+   190	   return prod;
+   191	}
+   192	
+   193	const Rational operator/(const Rational& lhs,
+   194	                         const Rational& rhs) {
+   195	
+   196	   Rational quo(lhs.numerator * rhs.denominator,
+   197	                lhs.denominator * rhs.numerator);
+   198	
+   199	   quo.lowTerms();
+   200	
+   201	   if (quo.denominator == 0) {
+   202	      cerr << "WARNING: Infinite Rational object created."
+   203	           << endl;
+   204	   }
+   205	
+   206	   return quo;
+   207	}
+   208	
+   209	
+   210	ostream& operator<<(ostream& s,
+   211	                    const Rational& rhs) {
+   212	
+   213	
+   214	  s << rhs.numerator
+   215	    << '/'
+   216	    << rhs. denominator;
+   217	
+   218	   return s;
+   219	}
+   220	istream& operator>>(istream& s,
+   221	                    Rational& rhs) {
+   222	
+   223	   char dummy;
+   224	
+   225	   s >> rhs.numerator
+   226	     >> dummy
+   227	     >> rhs. denominator;
+   228	
+   229	   rhs.lowTerms();
+   230	
+   231	   return s;
+   232	}
+   233	
+   234	void Rational::lowTerms() {
+   235	
+   236	   normalize();
+   237	
+   238	   int num = numerator;
+   239	   int den = denominator;
+   240	
+   241	   // Get the absolute value of num for calculating greatest common divisor.
+   242	   int absNum = num;
+   243	   if (absNum < 0) absNum = -absNum;
+   244	
+   245	   // Get the gcd of abs(num) and den.
+   246	   int greatestCommonDivisor = gcd(absNum, den);
+   247	
+   248	   // Set the data members so this Rational number is in lowest terms.
+   249	   numerator = num / greatestCommonDivisor;
+   250	   denominator = den / greatestCommonDivisor;
+   251	}
+   252	
+   253	void Rational::normalize() {
+   254	
+   255	   if (denominator < 0) {
+   256	      numerator = -numerator;
+   257	      denominator = -denominator;
+   258	   }
+   259	
+   260	   if (numerator == 0) {
+   261	      denominator = 1;
+   262	   }
+   263	}
+   264	
+   265	int gcd(const int& a,
+   266	        const int& b) {
+   267	
+   268	   int returnVal = b;
+   269	
+   270	   if (a % b != 0) {
+   271	      returnVal = gcd(b, a % b);
+   272	   }
+   273	
+   274	   return returnVal;
+   275	}

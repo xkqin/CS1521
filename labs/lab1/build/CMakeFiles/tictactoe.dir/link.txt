@@ -1,0 +1,1 @@
+/usr/bin/c++    -Wall -std=c++11    CMakeFiles/tictactoe.dir/board.cpp.o CMakeFiles/tictactoe.dir/game.cpp.o CMakeFiles/tictactoe.dir/main.cpp.o CMakeFiles/tictactoe.dir/player.cpp.o  -o tictactoe -rdynamic 

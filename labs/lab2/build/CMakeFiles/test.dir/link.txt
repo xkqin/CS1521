@@ -1,0 +1,1 @@
+/usr/bin/c++    -Wall -std=c++11    CMakeFiles/test.dir/lab2functions.cpp.o CMakeFiles/test.dir/lab2.cpp.o  -o test -rdynamic 

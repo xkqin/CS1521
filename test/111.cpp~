@@ -1,0 +1,72 @@
+#include <iostream>
+#include <math.h>
+#include <string.h>
+
+using namespace std;
+
+int main(){
+  int twodollars;//int 后面能跟数字吗
+  int onedollar;
+  int twentycents;
+  int tencents;
+  int fivecents;
+  int onecent;
+  double a;
+  double b;
+  double c;
+  double d;
+  double e;
+  double f;
+
+  double value;
+
+  cout<<"The amount of each denomination that you have and the value"<<endl;
+  cin>>twodollars>>onedollar>>twentycents>>tencents>>fivecents>>onecent>>value; 
+  int temp;
+  temp=value * 100;
+
+  if(200*twodollars+100*onedollar+20*twentycents+10*tencents+5*fivecents+1*onecent >= temp)
+    {
+      if( temp % 200 == 0 )
+	{
+	  cout << "you need " << temp /200  << "two dollars"<< endl;
+	}
+      else if( (temp % 200) % 100 ==0 )
+	{
+	  cout <<"You need " << temp / 200 << "two dollars " << (temp %200)/100 << "one dollars" << endl;
+	}
+	  
+    }
+  else cout <<"you are poor!" << endl;
+
+
+
+
+
+
+/*  int g=0; 
+  for(f=0;f<=onecent;f++){
+    for(e=0;e<=fivecents;e++){
+      for(d=0;d<=tencents;d++){
+	for(c=0;c<=twentycents;c++){
+	  for(b=0;b<=onedollar;b++){
+	    for(a=0;a<=twodollars;a++){
+	      if(2*a+1*b+0.25*c+0.1*d+0.05*e+0.01*f >= value){
+		cout<<twodollars<<" * $2, "<<onedollar<< " * $1, "<<twentycents<<" * 25c, "<<tencents<<" * 10c, "<<fivecents<<" * 5c, "<<onecent<< " * 1c,"<<endl;
+		g = 1;
+	      } 
+	    }
+	  }
+	}
+      }
+    }
+  }
+  
+  
+  if(g==0){
+    cout<<"不符合"<<endl;
+  }
+  else
+  */
+    return 0;
+}

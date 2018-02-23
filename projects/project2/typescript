@@ -1,0 +1,501 @@
+Script started on Mon 28 Sep 2015 05:43:11 PM CDT
+[4makka[24m:[1m~/CS1521/projects/project2[0m% pwd
+/home/csugrads/qinxx215/CS1521/projects/project2
+[4makka[24m:[1m~/CS1521/projects/project2[0m% ls -l
+total 40
+-rw-rw-r-- 1 qinxx215 qinxx215 2352 Sep 28 17:40 ArrayInterface.h
+-rw-rw-r-- 1 qinxx215 qinxx215 2241 Sep 28 15:40 ArrayInterface.h~
+-rw-rw-r-- 1 qinxx215 qinxx215 3073 Sep 28 17:31 BagOfArray.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215 2981 Sep 28 17:27 BagOfArray.cpp~
+-rw-rw-r-- 1 qinxx215 qinxx215 1316 Sep 28 17:25 BagOfArray.h
+-rw-rw-r-- 1 qinxx215 qinxx215 1293 Sep 28 15:39 BagOfArray.h~
+drwxrwxr-x 3 qinxx215 qinxx215 4096 Sep 28 17:43 build
+-rw-rw-r-- 1 qinxx215 qinxx215  108 Sep 23 18:37 CMakeLists.txt
+-rw-rw-r-- 1 qinxx215 qinxx215 2638 Sep 28 15:43 main.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215 2760 Sep 28 15:38 main.cpp~
+-rw-rw-r-- 1 qinxx215 qinxx215    0 Sep 28 17:43 typescript
+[4makka[24m:[1m~/CS1521/projects/project2[0m% cat CMakeLists.txt 
+project(receipt)
+
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
+
+add_executable(test main.cpp)[4makka[24m:[1m~/CS1521/projects/project2[0m% cat main.cpp
+#include <iostream>
+#include <string>
+#include <cstdlib>
+
+using namespace std;
+
+#include "BagOfArray.h"
+
+void displayBag(BagOfArray<string>& bag) {
+
+  cout << "The bag contains "
+       << bag.getCurrentSize()
+       << " items:"
+       << endl;
+
+  vector<string> bagItems = bag.toVector();
+
+  int numberOfEntries = (int)bagItems.size();
+
+  for (int i = 0; i < numberOfEntries; ++i) {
+    cout << bagItems[i]
+	 << " ";
+  }
+
+  cout << endl
+       << endl;
+}
+
+void bagTester(BagOfArray<string>& bag) {
+
+  cout << "isEmpty: returns "
+       << bag.isEmpty()
+       << "; should be 1 (true)"
+       << endl;
+
+  displayBag(bag);
+
+  string items[] = {"one", "two", "three", "four", "five", "one"};
+
+  cout << "Add 6(One,two,three,four,five,one) items to the bag: "
+       << endl;
+
+  for (int i = 0; i < 6; ++i) {
+    bag.add(items[i]);
+  }
+
+  displayBag(bag);
+
+  cout << "isEmpty(): returns "
+       << bag.isEmpty()
+       << "; should be 0 (false)"
+       << endl;
+
+  cout << "getCurrentSize(): returns "
+       << bag.getCurrentSize()
+       << "; should be 6"
+       << endl;
+
+  cout << "Try to add another entry: add(\"extra\") returns "
+       << bag.add("extra")
+       << "; should return the index of the extra which is 6"
+       << endl;
+  displayBag(bag);
+  cout << "if contains the one in the array: returns "
+       << bag.contains("one")
+       << "; should be 1 (true)"
+       << endl;
+
+  cout << "remove the second item : returns "
+       << bag.removeWithReceipt(1)
+       << "; should return two"
+       << endl;
+  displayBag(bag);
+  cout << "add an item to the gap which the second position in bag: returns "
+       << bag.add("Extra2")
+       << "; should return 1 which is the index of the gap"
+       << endl;
+  displayBag(bag);
+  cout << "remove the last iteme: returns "
+       << bag.removeWithReceipt(6)
+       << "; should be extra"
+       << endl;
+  displayBag(bag);
+  cout << "getFrequencyOf the one  : returns "
+       << bag.getFrequencyOf("one")
+       << "; should be 2"
+       << endl;
+
+  cout << "remove the third item: returns "
+       << bag.removeWithReceipt(2)
+       << "; should be three"
+       << endl;
+    
+
+  cout << endl;
+
+  displayBag(bag);
+  cout << "should be one Extra2 four five one " << endl;
+  cout << "After clearing the bag, ";
+
+  bag.clear();
+
+  cout << "isEmpty(): returns "
+       << bag.isEmpty()
+       << "; should be 1 (true)"
+       << endl;
+}
+
+int main() {
+
+  BagOfArray<string> bag;
+
+  cout << "Testing the Array-Based Bag:"
+       << endl
+       << "The initial bag is empty."
+       << endl;
+
+  bagTester(bag);
+
+  cout << "All done!"
+       << endl;
+
+  return EXIT_SUCCESS;
+}
+[4makka[24m:[1m~/CS1521/projects/project2[0m% cat A
+ArrayInterface.h~  ArrayInterface.h   
+[4makka[24m:[1m~/CS1521/projects/project2[0m% cat ArrayInterface.h
+#ifndef _ARRAY_INTERFACE
+#define _ARRAY_INTERFACE
+
+#include <vector>
+
+using namespace std;
+
+/** @class ArrayInterface ArrayInterface.h "ArrayInterface.h"
+ *
+ *  Definition of ArrayInterface class template. */
+template <typename ItemType>
+class ArrayInterface {
+ public:
+
+  /** Virtual destructor. */
+  virtual ~ArrayInterface() {}
+  /** Gets the current number of entries in this bag.
+   *
+   *  @return The integer number of entries currently in the bag. */
+  virtual int getCurrentSize() const = 0;
+
+  /** Sees whether this bag is empty.
+   *
+   *  @return True if the bag is empty, or false if not. */
+  virtual bool isEmpty() const = 0;
+
+  /** Adds a new entry to this bag.
+   *
+   *  @post If successful, newEntry is stored in the bag and the
+   *        count of items in the bag has increased by 1, and if the
+   *        array is full, double the size.
+   *
+   *  @param newEntry The object to be added as a new entry.
+   *
+   *  @return the receipt which is the index of the array */
+  virtual int add(const ItemType& newEntry) = 0;
+
+  /** Removes one occurrence of a given receipt which is the index from this bag, if
+   *  possible.
+   *
+   *  @post If successful, the object associate with the receipt has been removed from 
+   *        the bag and the count of items in the bag has decreased by 1.
+   *
+   *  @param receipt The value of the index of the array to be removed.
+   *
+   *  @return the objec that receipt associate with */
+  virtual ItemType removeWithReceipt(const int receipt) = 0;
+
+  /** Removes all entries from this bag.
+   *
+   *  @post This bag contains no items (thus the count is 0). */
+  virtual void clear() = 0;
+
+
+  /** Counts the number of times a given entry appears in bag.
+   *
+   *  @param anEntry The value of the entry to be counted.
+   *
+   *  @return The number of times anEntry appears in this bag. */
+  virtual int getFrequencyOf(const ItemType& newEntry) const = 0;
+
+  /** Tests whether this bag contains a given entry.
+   *
+   *  @param anEntry The value of the entry to locate.
+   *
+   *  @return True if this bag contains anEntry, or false
+   *          otherwise. */
+  virtual bool contains(const ItemType& newEntry) const = 0;
+
+  /** Converts this bag into a vector.
+   *
+   *  @return A vector containing all the entries in this bag. */
+  virtual vector<ItemType> toVector() const = 0;
+};
+
+#endif
+[4makka[24m:[1m~/CS1521/projects/project2[0m% cat B
+BagOfArray.cpp~  BagOfArray.cpp   BagOfArray.h~    BagOfArray.h     
+[4makka[24m:[1m~/CS1521/projects/project2[0m% cat BagOfArray.h
+#ifndef _BAG_OF_ARRAY
+#define _BAG_OF_ARRAY
+
+#include "ArrayInterface.h"
+#include <cstdlib>
+
+/** @class BagOfArray  "BagOfArray.h"
+ *
+ *  Specification of an dynamic array-based ADT bag. */
+template <typename ItemType>
+class BagOfArray : public ArrayInterface<ItemType> {
+ private:
+  /** Default capacity of this bag. */
+  static const int DEFAULT_CAPACITY = 6;
+
+  /** Data storage. */
+  ItemType* items;
+
+  bool* inUse;
+
+  /** Number of items in this bag. */
+  int itemCount;
+  /** Maximum capacity of this bag. */
+  int maxItems;
+  
+
+  /** Gets the index of target in the array 'items' in this bag.
+   *
+   * @param target The ItemType value to retrieve the index of.
+   *
+   * @return The index of the element in the array 'items' that
+   *         contains 'target' or -1 if the array does not contain
+   *         'target'. */
+  int getIndexOf(const ItemType& target) const;
+
+ public:
+  /** Default constructor. */
+  BagOfArray();
+  /** distructor. */
+  ~BagOfArray();
+  int getCurrentSize() const;
+
+  bool isEmpty() const;
+
+  int  add(const ItemType& newEntry);
+
+  ItemType removeWithReceipt(const int receipt);
+
+  void clear();
+
+  int getFrequencyOf(const ItemType& newEntry) const;
+
+  bool contains(const ItemType& newEntry) const;
+
+  vector<ItemType> toVector() const;
+};
+
+#include "BagOfArray.cpp"
+
+#endif
+[4makka[24m:[1m~/CS1521/projects/project2[0m% cat B
+BagOfArray.cpp~  BagOfArray.cpp   BagOfArray.h~    BagOfArray.h     
+[4makka[24m:[1m~/CS1521/projects/project2[0m% cat BagOfArray.cpp
+
+
+template <typename ItemType>
+BagOfArray<ItemType>::BagOfArray()
+  : itemCount(0),
+    maxItems(DEFAULT_CAPACITY)
+    
+{
+  items = new ItemType[maxItems];
+  inUse = new bool[maxItems];
+
+    for(int i=0; i<DEFAULT_CAPACITY; i++)
+    {
+      *(inUse+i)=false;
+      }
+    
+}
+template <typename ItemType>
+BagOfArray<ItemType>::~BagOfArray()
+{ 
+  clear();
+  //delete [] items;
+  //delete [] inUse;
+}
+
+template <typename ItemType>
+int BagOfArray<ItemType>::getCurrentSize() const {
+
+  return itemCount;
+}
+
+template <typename ItemType>
+bool BagOfArray<ItemType>::isEmpty() const {
+
+  return itemCount == 0;
+}
+
+template <typename ItemType>
+int BagOfArray<ItemType>::add(const ItemType& newEntry) {
+     int receipt = -1;
+     int i = 0;
+     for( i=0; i < maxItems; ++i)
+      {
+	if (*(inUse + i) == false)
+	  {
+	    *(items + i) = newEntry;
+	    *(inUse + i) = true;
+	    	    receipt = i;
+	    ++itemCount;
+	    break;
+	  }
+      }
+    if(maxItems == i )
+      {
+	ItemType* oldArray = items;
+	items = new ItemType[2*maxItems];
+	bool* old = inUse;
+	inUse = new bool[2*maxItems];
+	for(int index = 0; index < maxItems; ++index)
+	  {
+	    *(items+index) = *(oldArray+index);
+	    *(inUse+index) = *(old+index);
+	  }
+	delete [] oldArray;
+	delete [] old;
+	oldArray = nullptr;
+	old = nullptr;
+	maxItems *= 2;
+      	receipt = add(newEntry);
+      }
+      return receipt;
+      
+}
+
+template <typename ItemType>
+ItemType BagOfArray<ItemType>::removeWithReceipt(const int receipt) {
+
+  bool canRemoveItem = receipt > -1;
+   if (canRemoveItem && (*(inUse + receipt) = true) ) {
+     *(inUse+receipt) = false;
+     --itemCount;
+   }
+   //     else  return EXIT_FAILURE;
+   return *(items + receipt);
+}
+
+template <typename ItemType>
+void BagOfArray<ItemType>::clear() {
+  delete [] items;
+  delete [] inUse;
+  items = nullptr;
+  inUse = nullptr;
+  itemCount = 0;
+}
+
+template <typename ItemType>
+bool BagOfArray<ItemType>::contains(const ItemType& newEntry) const {
+
+  bool found = false;
+  int curIndex = 0;
+
+  while ( !found && curIndex < itemCount ) {
+    if (*(items + curIndex) == newEntry && inUse[curIndex] ==true )  {
+      found = true;
+    }
+    ++curIndex;
+  }
+    
+  return found;
+}
+
+template <typename ItemType>
+int BagOfArray<ItemType>::getFrequencyOf(const ItemType& newEntry) const {
+
+  int frequency = 0;
+  for (int i=0; i<itemCount; ++i)
+    {
+      if(inUse[i] == true && items[i] == newEntry)
+	++frequency;
+    }
+
+  return frequency;
+}
+
+template <typename ItemType>
+vector<ItemType> BagOfArray<ItemType>::toVector() const {
+
+ vector<ItemType> bagContents;
+
+  for (int i = 0; i < maxItems; ++i) 
+  {
+    if( inUse[i] == false ) continue;
+    bagContents.push_back(items[i]);
+  }
+
+  return bagContents;
+}
+
+template <typename ItemType>
+int BagOfArray<ItemType>::getIndexOf(const ItemType& target) const {
+
+  bool found = false;
+  int result = -1;
+  int searchIndex = 0;
+
+  while (!found && searchIndex < itemCount) {
+    if (items[searchIndex] == target) {
+      found = true;
+      result = searchIndex;
+    }
+    else {
+      ++searchIndex;
+    }
+  }
+
+  return result;
+}
+
+[4makka[24m:[1m~/CS1521/projects/project2[0m% cd build
+[4makka[24m:[1m~/CS1521/projects/project2/build[0m% m[Kcam[K[Kmake ..
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/csugrads/qinxx215/CS1521/projects/project2/build
+[4makka[24m:[1m~/CS1521/projects/project2/build[0m% make
+[100%] [32mBuilding CXX object CMakeFiles/test.dir/main.cpp.o
+[0m[31m[1mLinking CXX executable test
+[0m[100%] Built target test
+[4makka[24m:[1m~/CS1521/projects/project2/build[0m% ./test
+Testing the Array-Based Bag:
+The initial bag is empty.
+isEmpty: returns 1; should be 1 (true)
+The bag contains 0 items:
+
+
+Add 6(One,two,three,four,five,one) items to the bag: 
+The bag contains 6 items:
+one two three four five one 
+
+isEmpty(): returns 0; should be 0 (false)
+getCurrentSize(): returns 6; should be 6
+Try to add another entry: add("extra") returns 6; should return the index of the extra which is 6
+The bag contains 7 items:
+one two three four five one extra 
+
+if contains the one in the array: returns 1; should be 1 (true)
+remove the second item : returns two; should return two
+The bag contains 6 items:
+one three four five one extra 
+
+add an item to the gap which the second position in bag: returns 1; should return 1 which is the index of the gap
+The bag contains 7 items:
+one Extra2 three four five one extra 
+
+remove the last iteme: returns extra; should be extra
+The bag contains 6 items:
+one Extra2 three four five one 
+
+getFrequencyOf the one  : returns 2; should be 2
+remove the third item: returns three; should be three
+
+The bag contains 5 items:
+one Extra2 four five one 
+
+should be one Extra2 four five one 
+After clearing the bag, isEmpty(): returns 1; should be 1 (true)
+All done!
+[4makka[24m:[1m~/CS1521/projects/project2/build[0m% exit
+exit
+
+Script done on Mon 28 Sep 2015 05:44:33 PM CDT

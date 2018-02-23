@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/csugrads/qinxx215/CS1521/labs/lab3/ArraySet.cpp
+
+/home/csugrads/qinxx215/CS1521/labs/lab3/ArraySet.h
+SetInterface.h
+/home/csugrads/qinxx215/CS1521/labs/lab3/SetInterface.h
+ArraySet.cpp
+/home/csugrads/qinxx215/CS1521/labs/lab3/ArraySet.cpp
+
+/home/csugrads/qinxx215/CS1521/labs/lab3/SetInterface.h
+vector
+-
+
+/home/csugrads/qinxx215/CS1521/labs/lab3/lab3.cpp
+ArraySet.h
+/home/csugrads/qinxx215/CS1521/labs/lab3/ArraySet.h
+iostream
+-
+

@@ -1,0 +1,609 @@
+Script started on Tue 06 Oct 2015 03:10:35 PM CDT
+[4makka[24m:[1m~/CS1521/labs/lab3[0m% pwd
+/home/csugrads/qinxx215/CS1521/labs/lab3
+[4makka[24m:[1m~/CS1521/labs/lab3[0m% ls -l
+total 48
+-rw-rw-r-- 1 qinxx215 qinxx215 2793 Oct  6 13:26 ArraySet.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215 2792 Oct  6 13:26 ArraySet.cpp~
+-rw-rw-r-- 1 qinxx215 qinxx215 1656 Oct  5 15:56 ArraySet.h
+-rw-rw-r-- 1 qinxx215 qinxx215 1286 Sep 30 18:50 ArraySet.h~
+drwxrwxr-x 3 qinxx215 qinxx215 4096 Oct  6 15:10 build
+-rw-rw-r-- 1 qinxx215 qinxx215  103 Sep 30 20:12 CMakeLists.txt
+-rw-rw-r-- 1 qinxx215 qinxx215 4967 Oct  6 15:10 lab3.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215 4976 Oct  6 15:09 lab3.cpp~
+-rw-rw-r-- 1 qinxx215 qinxx215 2295 Oct  5 15:44 SetInterface.h
+-rw-rw-r-- 1 qinxx215 qinxx215 2224 Sep 29 15:14 SetInterface.h~
+-rw-rw-r-- 1 qinxx215 qinxx215    0 Oct  6 15:10 typescript
+[4makka[24m:[1m~/CS1521/labs/lab3[0m% cat CMakeLists.txt 
+project(lab3)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
+add_executable(test lab3.cpp)[4makka[24m:[1m~/CS1521/labs/lab3[0m% cat l
+lab3.cpp~  lab3.cpp   
+[4makka[24m:[1m~/CS1521/labs/lab3[0m% cat lab3.cpp
+#include "ArraySet.h"
+#include <iostream>
+void findDifference(ArraySet<char> bag1,ArraySet<char> bag2);
+void displayBag(ArraySet<char>& bag);
+using namespace std;
+int main()
+{
+  ArraySet<char> bag1, bag2;
+  char x[]={'a','e','d'};
+  char y[]={'a','b','c'};
+  char z[]={'d','e','f'};
+   for(int i=0; i<3; ++i)
+    {
+          bag1.add(y[i]);
+    }
+    cout << "Add ";
+    displayBag(bag1);
+    cout <<" to the bag " << endl;
+    cout <<" add c in to the set bag"<<endl;
+    cout <<"return "
+	 << bag1.add('c');
+    cout << "  Should be 0;which is false"<< endl;
+    cout << "Clear the bag"<< endl;
+    bag1.clear();
+    cout << " Is left hand side empty: returns "
+	 << bag1.isEmpty()
+	 <<"; should be 1 (true)"
+	 << endl;
+    cout << " Is right hand side empty: returns "
+	 << bag2.isEmpty()
+	 <<"; should be 1 (true)"
+	 << endl;
+    cout << "Result from difference when both sets are empty." <<endl;
+    findDifference(bag1,bag2);
+    cout <<endl;
+    cout <<endl;
+
+   for(int i=0; i<3; ++i)
+    {
+          bag2.add(y[i]);
+    }
+
+   cout << "Add ";
+   displayBag(bag2);
+    cout <<" to the right-hand bag " << endl;
+    cout << " Is left hand side empty: returns "
+	 << bag1.isEmpty()
+	 <<"; should be 1 (ture)"
+	 << endl;
+    cout << " Is right hand side empty: returns "
+	 << bag2.isEmpty()
+	 <<"; should be 0 (false)"
+	 << endl;
+ 
+    cout << "Result from difference when this (left-hand side) set is empty"
+	 << endl
+	 << "but the set passed in as an argument (right-hand side) has items in it."<<endl;
+    findDifference(bag1,bag2);
+    cout << "Clear the bag " << endl;
+    bag2.clear();
+    cout << endl
+	 << endl;
+
+
+   for(int i=0; i<3; ++i)
+    {
+          bag1.add(y[i]);
+    }
+
+   cout << "Add ";
+   displayBag(bag1);
+    cout <<" to the left-hand bag " << endl;
+    cout << " Is left hand side empty: returns "
+	 << bag1.isEmpty()
+	 <<"; should be 0 (false)"
+	 << endl;
+    cout << " Is right hand side empty: returns "
+	 << bag2.isEmpty()
+	 <<"; should be 1 (true)"
+	 << endl;
+
+    cout << "Result from difference when the right-hand side set is empty" << endl
+	 << "but the left-hand side set has items in it."<< endl;
+    findDifference(bag1,bag2);
+    cout << endl;
+    cout << endl;
+
+
+   for(int i=0; i<3; ++i)
+    {
+          bag2.add(z[i]);
+    }
+
+   cout << "Add ";
+   displayBag(bag2);
+    cout <<" to the right-hand bag " << endl;
+    cout << " Is left hand side empty: returns "
+	 << bag1.isEmpty()
+	 <<"; should be 0 (false)"
+	 << endl;
+    cout << " Is right hand side empty: returns "
+	 << bag2.isEmpty()
+	 <<"; should be 0 (false)"
+	 << endl;
+    cout << "The left-hand bag has ";
+      displayBag(bag1);
+      cout << endl;
+    cout << "Result from difference when the sets have no intersection"
+	 << endl;
+    findDifference(bag1,bag2);
+    cout << "Clear the bag"<< endl;
+    bag2.clear();
+    bag1.clear();
+    cout << endl
+	 << endl;
+
+
+
+   for(int i=0; i<3; ++i)
+    {
+          bag2.add(x[i]);
+    }
+
+   for(int i=0; i<3; ++i)
+    {
+          bag1.add(y[i]);
+    }
+
+   cout << "Add ";
+   displayBag(bag2);
+   cout <<" to the right-hand bag " << endl;
+   cout << "Add ";
+   displayBag(bag1);
+    cout <<" to the left-hand bag " << endl;
+
+    cout << " Is left hand side empty: returns "
+	 << bag1.isEmpty()
+	 <<"; should be 0 (false)"
+	 << endl;
+    cout << " Is right hand side empty: returns "
+	 << bag2.isEmpty()
+	 <<"; should be 0 (false)"
+	 << endl;
+    cout << "The left-hand bag has ";
+      displayBag(bag1);
+      cout << endl;
+    cout << "Result from difference when the sets have an intersection"
+	 << endl
+	 << "but they do not contain identical sets of items."<<endl;
+    findDifference(bag1,bag2);
+    cout << endl;
+    cout << "Clear the bag"<< endl;
+    bag2.clear();
+    bag1.clear();
+    cout << endl
+	 << endl;
+
+
+
+
+   for(int i=0; i<3; ++i)
+    {
+          bag2.add(y[i]);
+    }
+
+   for(int i=0; i<3; ++i)
+    {
+          bag1.add(y[i]);
+    }
+
+   cout << "Add ";
+   displayBag(bag2);
+   cout <<" to the right-hand bag " << endl;
+   cout << "Add ";
+   displayBag(bag1);
+    cout <<" to the left-hand bag " << endl;
+
+    cout << " Is left hand side empty: returns "
+	 << bag1.isEmpty()
+	 <<"; should be 0 (false)"
+	 << endl;
+    cout << " Is right hand side empty: returns "
+	 << bag2.isEmpty()
+	 <<"; should be 0 (false)"
+	 << endl;
+    cout << "Result from difference when the sets contain the same sets of items"
+	 << endl;
+    findDifference(bag1,bag2);
+    cout << endl;
+    cout << "Clear the bag"<< endl;
+    bag2.clear();
+    bag1.clear();
+
+
+
+
+}
+
+
+void findDifference(ArraySet<char> bag1,ArraySet<char> bag2)
+{
+  ArraySet<char> a = bag1.difference(bag2);
+  vector<char> bagItems = a.toVector();
+  int count = (int) bagItems.size();
+  for (int i = 0; i < count; ++i) {
+    cout << bagItems[i]
+	 << " ";
+  }
+
+}
+   
+void displayBag(ArraySet<char>& bag)
+{
+     vector<char> bagItem = bag.toVector();
+   int count = bagItem.size();
+   for (int i = 0; i < count; ++i) {
+     cout << bagItem[i]
+	  << " ";
+   }
+}
+[4makka[24m:[1m~/CS1521/labs/lab3[0m% CAT[K[K[Kcat S
+SetInterface.h~  SetInterface.h   
+[4makka[24m:[1m~/CS1521/labs/lab3[0m% cat SetInterface.h
+#ifndef _SET_INTERFACE
+#define _SET_INTERFACE
+
+#include <vector>
+
+using namespace std;
+
+/** @class SetInterface SetInterface.h "SetInterface.h"
+ *
+ *  Definition of SetInterface class template. */
+template <typename ItemType>
+class SetInterface {
+ public:
+
+  /** Virtual destructor. */
+  virtual ~SetInterface() {}
+
+  /** Gets the current number of entries in this bag.
+   *
+   *  @return The integer number of entries currently in the bag. */
+  virtual int getCurrentSize() const = 0;
+
+  /** Sees whether this bag is empty.
+   *
+   *  @return True if the bag is empty, or false if not. */
+  virtual bool isEmpty() const = 0;
+
+  /** Adds a new entry to this bag.
+   *
+   *  @post If successful, newEntry is stored in the bag and the
+   *        count of items in the bag has increased by 1 and there 
+   *        are only unique items instead of duplicate items
+   *
+   *  @param newEntry The object to be added as a new entry.
+   *
+   *  @return True if addition was successful, or false if not. */
+  virtual bool add(const ItemType& newEntry) = 0;
+
+  /** Removes one occurrence of a given entry from this bag, if
+   *  possible.
+   *
+   *  @post If successful, anEntry has been removed from the bag and
+   *        the count of items in the bag has decreased by 1.
+   *
+   *  @param anEntry The value of the entry to be removed.
+   *
+   *  @return True if removal was successful, or false if not. */
+  virtual bool remove(const ItemType& anEntry) = 0;
+
+  /** Removes all entries from this bag.
+   *
+   *  @post This bag contains no items (thus the count is 0). */
+  virtual void clear() = 0;
+
+
+  /** Counts the number of times a given entry appears in bag.
+   *
+   *  @param anEntry The value of the entry to be counted.
+   *
+   *  @return The number of times anEntry appears in this bag. */
+  virtual int getFrequencyOf(const ItemType& anEntry) const = 0;
+
+  /** Tests whether this bag contains a given entry.
+   *
+   *  @param anEntry The value of the entry to locate.
+   *
+   *  @return True if this bag contains anEntry, or false
+   *          otherwise. */
+  virtual bool contains(const ItemType& anEntry) const = 0;
+
+  /** Converts this bag into a vector.
+   *
+   *  @return A vector containing all the entries in this bag. */
+  virtual vector<ItemType> toVector() const = 0;
+};
+
+#endif
+[4makka[24m:[1m~/CS1521/labs/lab3[0m% cat A
+ArraySet.cpp~  ArraySet.cpp   ArraySet.h~    ArraySet.h     
+[4makka[24m:[1m~/CS1521/labs/lab3[0m% cat ArraySet.h
+#ifndef _ARRAY_SET
+#define _ARRAY_SET
+
+#include "SetInterface.h"
+
+/** @class ArraySet ArraySet.h "ArraySet.h"
+ *
+ *  Specification of an array-based ADT bag. */
+template <typename ItemType>
+class ArraySet : public SetInterface<ItemType> {
+ private:
+  /** Maximum capacity of this bag. */
+  static const int DEFAULT_CAPACITY = 6;
+
+  /** Data storage. */
+  ItemType items[DEFAULT_CAPACITY];
+
+  /** Number of items in this bag. */
+  int itemCount;
+
+  /** Maximum capacity of this bag. */
+  int maxItems;
+
+  /** Gets the index of target in the array 'items' in this bag.
+   *
+   * @param target The ItemType value to retrieve the index of.
+   *
+   * @return The index of the element in the array 'items' that
+   *         contains 'target' or -1 if the array does not contain
+   *         'target'. */
+  int getIndexOf(const ItemType& target) const;
+
+ public:
+  /** Default constructor. */
+  ArraySet();
+
+  int getCurrentSize() const;
+
+  bool isEmpty() const;
+
+  bool add(const ItemType& newEntry);
+
+  bool remove(const ItemType& anEntry);
+
+  void clear();
+
+  int getFrequencyOf(const ItemType& anEntry) const;
+
+  bool contains(const ItemType& anEntry) const;
+
+  vector<ItemType> toVector() const;
+  /** find difference between the two ArraySet ADT
+   *
+   *  @pre the class it pass maust be the same ADT which is ArraySet
+   *
+   *  @post if successful, the difference between the 2 ADT will store in
+   *        another same ADT which is the ArraySet
+   *
+   *  @param a type of ArraySet
+   *
+   *  @return The ArraySet template which contain the difference items*/
+
+  ArraySet<ItemType> difference(const ArraySet& bag);
+
+};
+
+#include "ArraySet.cpp"
+
+#endif
+[4makka[24m:[1m~/CS1521/labs/lab3[0m% cat A
+ArraySet.cpp~  ArraySet.cpp   ArraySet.h~    ArraySet.h     
+[4makka[24m:[1m~/CS1521/labs/lab3[0m% cat ArraySet.cpp
+template <typename ItemType>
+ArraySet<ItemType>::ArraySet()
+  : itemCount(0),
+    maxItems(DEFAULT_CAPACITY) {
+    }
+
+template <typename ItemType>
+int ArraySet<ItemType>::getCurrentSize() const {
+
+  return itemCount;
+}
+
+template <typename ItemType>
+bool ArraySet<ItemType>::isEmpty() const {
+
+  return itemCount == 0;
+}
+
+template <typename ItemType>
+bool ArraySet<ItemType>::add(const ItemType& newEntry) {
+
+  bool isDuplicate = true;
+  for(int i=0; i< itemCount; i++)
+    {
+      if(items[i] == newEntry)
+	{
+	  isDuplicate = false;
+	}
+    }
+  if (isDuplicate  && itemCount < maxItems) {
+    items[itemCount] = newEntry;
+    ++itemCount;
+  }
+
+  return isDuplicate;
+}
+
+template <typename ItemType>
+bool ArraySet<ItemType>::remove(const ItemType& anEntry) {
+
+  int locatedIndex = getIndexOf(anEntry);
+  bool canRemoveItem = locatedIndex > -1;
+
+  if (canRemoveItem) {
+    --itemCount;
+    items[locatedIndex] = items[itemCount];
+  }
+
+  return canRemoveItem;
+}
+
+template <typename ItemType>
+void ArraySet<ItemType>::clear() {
+
+  itemCount = 0;
+}
+
+template <typename ItemType>
+bool ArraySet<ItemType>::contains(const ItemType& anEntry) const {
+
+  bool found = false;
+  int curIndex = 0;
+
+  while (!found && curIndex < itemCount) {
+    if (anEntry == items[curIndex]) {
+      found = true;
+    }
+    ++curIndex;
+  }
+
+  return found;
+}
+
+template <typename ItemType>
+int ArraySet<ItemType>::getFrequencyOf(const ItemType& anEntry) const {
+
+  int frequency = 0;
+  int curIndex = 0;
+
+  while (curIndex < itemCount) {
+    if (items[curIndex] == anEntry) {
+      ++frequency;
+    }
+    ++curIndex;
+  }
+
+  return frequency;
+}
+
+template <typename ItemType>
+vector<ItemType> ArraySet<ItemType>::toVector() const {
+
+  vector<ItemType> bagContents;
+
+  for (int i = 0; i < itemCount; ++i) {
+    bagContents.push_back(items[i]);
+  }
+
+  return bagContents;
+}
+
+template <typename ItemType>
+int ArraySet<ItemType>::getIndexOf(const ItemType& target) const {
+
+  bool found = false;
+  int result = -1;
+  int searchIndex = 0;
+
+  while (!found && searchIndex < itemCount) {
+    if (items[searchIndex] == target) {
+      found = true;
+      result = searchIndex;
+    }
+    else {
+      ++searchIndex;
+    }
+  }
+
+  return result;
+}
+
+
+template <typename ItemType>
+ArraySet<ItemType> ArraySet<ItemType>::difference(const ArraySet<ItemType>& bag)
+{
+  ArraySet<ItemType> final;
+  /* int count = 0, j = 0;
+  for(int i = 0; i < itemCount; ++i)
+    {
+      for ( j=0; j < bag.itemCount; ++j)
+        {
+          if(items[i] == bag.items[j]) continue;
+          else ++count;
+        }
+      if(j == count)
+        {
+          final.add(items[i]);
+        }
+      count = 0;
+      j = 0;
+
+      }*/
+  for(int i=0; i < itemCount; ++i)
+    {
+      if(!bag.contains(items[i]))
+	{
+	  final.add(items[i]);
+	}
+    }
+
+  return final;
+}
+[4makka[24m:[1m~/CS1521/labs/lab3[0m% cd build
+[4makka[24m:[1m~/CS1521/labs/lab3/build[0m% make
+[100%] [32mBuilding CXX object CMakeFiles/test.dir/lab3.cpp.o
+[0m[31m[1mLinking CXX executable test
+[0m[100%] Built target test
+[4makka[24m:[1m~/CS1521/labs/lab3/build[0m% ./test
+Add a b c  to the bag 
+ add c in to the set bag
+return 0  Should be 0;which is false
+Clear the bag
+ Is left hand side empty: returns 1; should be 1 (true)
+ Is right hand side empty: returns 1; should be 1 (true)
+Result from difference when both sets are empty.
+
+
+Add a b c  to the right-hand bag 
+ Is left hand side empty: returns 1; should be 1 (ture)
+ Is right hand side empty: returns 0; should be 0 (false)
+Result from difference when this (left-hand side) set is empty
+but the set passed in as an argument (right-hand side) has items in it.
+Clear the bag 
+
+
+Add a b c  to the left-hand bag 
+ Is left hand side empty: returns 0; should be 0 (false)
+ Is right hand side empty: returns 1; should be 1 (true)
+Result from difference when the right-hand side set is empty
+but the left-hand side set has items in it.
+a b c 
+
+Add d e f  to the right-hand bag 
+ Is left hand side empty: returns 0; should be 0 (false)
+ Is right hand side empty: returns 0; should be 0 (false)
+The left-hand bag has a b c 
+Result from difference when the sets have no intersection
+a b c Clear the bag
+
+
+Add a e d  to the right-hand bag 
+Add a b c  to the left-hand bag 
+ Is left hand side empty: returns 0; should be 0 (false)
+ Is right hand side empty: returns 0; should be 0 (false)
+The left-hand bag has a b c 
+Result from difference when the sets have an intersection
+but they do not contain identical sets of items.
+b c 
+Clear the bag
+
+
+Add a b c  to the right-hand bag 
+Add a b c  to the left-hand bag 
+ Is left hand side empty: returns 0; should be 0 (false)
+ Is right hand side empty: returns 0; should be 0 (false)
+Result from difference when the sets contain the same sets of items
+
+Clear the bag
+[4makka[24m:[1m~/CS1521/labs/lab3/build[0m% exit
+exit
+
+Script done on Tue 06 Oct 2015 03:11:42 PM CDT

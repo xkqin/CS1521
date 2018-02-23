@@ -1,0 +1,176 @@
+Script started on Mon 16 Nov 2015 04:01:47 PM CST
+[4makka[24m:[1m~/CS1521/labs/lab6/src[0m% pwd
+/home/csugrads/qinxx215/CS1521/labs/lab6/src
+[4makka[24m:[1m~/CS1521/labs/lab6/src[0m% ls -k[Kl
+total 96
+drwxrwxr-x 3 qinxx215 qinxx215 4096 Nov 16 16:01 build
+-rw-rw-r-- 1 qinxx215 qinxx215  142 Nov  9 20:10 CMakeLists.txt
+-rw-rw-r-- 1 qinxx215 qinxx215  143 Nov  9 20:10 CMakeLists.txt~
+-rw-r--r-- 1 qinxx215 qinxx215 7173 Nov 16 15:55 dasd sa
+-rw-r--r-- 1 qinxx215 qinxx215 7140 Nov 16 15:59 lab6.cpp
+-rw-r--r-- 1 qinxx215 qinxx215 7160 Nov 16 15:45 lab6.cpp~
+-rw-r--r-- 1 qinxx215 qinxx215 5959 Oct 28 17:06 LinkedList.cpp
+-rw-r--r-- 1 qinxx215 qinxx215 1784 Oct 28 17:06 LinkedList.h
+-rw-r--r-- 1 qinxx215 qinxx215 3036 Oct 28 17:06 ListInterface.h
+-rw-r--r-- 1 qinxx215 qinxx215 1087 Oct 28 17:06 Node.cpp
+-rw-r--r-- 1 qinxx215 qinxx215  725 Nov 10 15:34 Node.h
+-rw-r--r-- 1 qinxx215 qinxx215 1087 Oct 28 17:06 Node.h~
+-rw-r--r-- 1 qinxx215 qinxx215  519 Oct 28 17:06 PrecondViolatedExcep.cpp
+-rw-r--r-- 1 qinxx215 qinxx215  763 Oct 28 17:06 PrecondViolatedExcep.h
+-rw-r--r-- 1 qinxx215 qinxx215 5248 Nov 11 14:30 Rational.cpp
+-rw-r--r-- 1 qinxx215 qinxx215 5254 Nov 11 14:28 Rational.cpp~
+-rw-r--r-- 1 qinxx215 qinxx215 2365 Nov 11 14:29 Rational.h
+-rw-r--r-- 1 qinxx215 qinxx215 2371 Nov 11 14:28 Rational.h~
+-rw-rw-r-- 1 qinxx215 qinxx215    0 Nov 16 16:01 typescript
+[4makka[24m:[1m~/CS1521/labs/lab6/src[0m% cat -n C
+CMakeLists.txt~  CMakeLists.txt   
+[4makka[24m:[1m~/CS1521/labs/lab6/src[0m% cat -n CMakeLists.txt
+     1	project(lab6)
+     2	
+     3	set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLGS} -Wall -std=c++11")
+     4	
+     5	add_executable(test lab6.cpp PrecondViolatedExcep.cpp Rational.cpp)[4makka[24m:[1m~/CS1521/labs/lab6/src[0m% car[K[K[Kcat -n R
+Rational.cpp~  Rational.cpp   Rational.h~    Rational.h     
+[4makka[24m:[1m~/CS1521/labs/lab6/src[0m% cat -n Rational.cpp | sed -n 210,219p
+   210	ostream& operator<<(ostream& s,
+   211	                    const Rational& rhs) {
+   212	
+   213	
+   214	  s << rhs.numerator
+   215	    << '/'
+   216	    << rhs. denominator;
+   217	
+   218	   return s;
+   219	}
+[4makka[24m:[1m~/CS1521/labs/lab6/src[0m% cd build
+[4makka[24m:[1m~/CS1521/labs/lab6/src/build[0m% make
+[ 33%] [32mBuilding CXX object CMakeFiles/test.dir/lab6.o
+[0m[ 66%] [32mBuilding CXX object CMakeFiles/test.dir/PrecondViolatedExcep.o
+[0m[100%] [32mBuilding CXX object CMakeFiles/test.dir/Rational.o
+[0m[31m[1mLinking CXX executable test
+[0m[100%] Built target test
+[4makka[24m:[1m~/CS1521/labs/lab6/src/build[0m% ./test
+Test Rational methods:
+Default ctor = 0/1
+One-arg ctor = 1/1
+Two-arg ctor = 1/2
+Copy ctor = 1/2
+Prefix Increment = 3/2 1/2 = 3/2
+Postfix Increment = 3/2 1/2 = 5/2
+Prefix Decrement = 3/2 1/2 = 3/2
+Postfix Decrement = 3/2 1/2 = 1/2
+1/2 Less Than 2/3: OK.
+2/3 Less Than 1/2: OK.
+1/2 Less Than 1/2: OK.
+1/2 Greater Than 2/3: OK.
+2/3 Greater Than 1/2: OK.
+1/2 Greater Than 1/2: OK.
+1/2 Less Than Or Equal To 2/3: OK.
+2/3 Less Than Or Equal To 1/2: OK.
+1/2 Less Than Or Equal To 1/2: OK.
+1/2 Greater Than Or Equal To 2/3: OK.
+2/3 Greater Than Or Equal To 1/2: OK.
+1/2 Greater Than Or Equal To 1/2: OK.
+1/2 Equal To 2/3: OK.
+2/3 Equal To 1/2: OK.
+1/2 Equal To 1/2: OK.
+1/2 Not Equal To 2/3: OK.
+2/3 Not Equal To 1/2: OK.
+1/2 Not Equal To 1/2: OK.
+Addition:
+1/2 + 2/3 = 7/6; should be 7/6
+Subtraction:
+1/2 - 2/3 = -1/6; should be -1/6
+Multiplication:
+1/2 * 2/3 = 1/3; should be 1/3
+Division:
+1/2 / 2/3 = 3/4; should be 3/4
+Add and Assign:
+3/4 += 2/3 = 17/12; should be 17/12
+Subtract and Assign:
+3/4 -= 2/3 = 1/12; should be 1/12
+Multiply and Assign:
+3/4 *= 2/3 = 1/2; should be 1/2
+Divide and Assign:
+3/4 /= 2/3 = 9/8; should be 9/8
+Test of Double Conversion Operator:
+2/3 = 0.666667; should be 0.666667
+Test of Assign an Integer:
+Three = 3/1; should be 3/1
+Test of Assign a Rational:
+anotherTwoThirds = 2/3; should be 2/3
+Test input streaming:
+Enter a rational (zero quits): 2/3
+Enter a rational (zero quits): 4/2
+Enter a rational (zero quits): 0/0
+Here are the rationals you entered:
+2/3
+2/1
+0/1
+
+Enter an int (zero quits): 3
+Enter an int (zero quits): 4
+Enter an int (zero quits): 0
+Here are the integers you entered:
+3
+4
+0
+
+All done!
+[4makka[24m:[1m~/CS1521/labs/lab6/src/build[0m% ./test
+Test Rational methods:
+Default ctor = 0/1
+One-arg ctor = 1/1
+Two-arg ctor = 1/2
+Copy ctor = 1/2
+Prefix Increment = 3/2 1/2 = 3/2
+Postfix Increment = 3/2 1/2 = 5/2
+Prefix Decrement = 3/2 1/2 = 3/2
+Postfix Decrement = 3/2 1/2 = 1/2
+1/2 Less Than 2/3: OK.
+2/3 Less Than 1/2: OK.
+1/2 Less Than 1/2: OK.
+1/2 Greater Than 2/3: OK.
+2/3 Greater Than 1/2: OK.
+1/2 Greater Than 1/2: OK.
+1/2 Less Than Or Equal To 2/3: OK.
+2/3 Less Than Or Equal To 1/2: OK.
+1/2 Less Than Or Equal To 1/2: OK.
+1/2 Greater Than Or Equal To 2/3: OK.
+2/3 Greater Than Or Equal To 1/2: OK.
+1/2 Greater Than Or Equal To 1/2: OK.
+1/2 Equal To 2/3: OK.
+2/3 Equal To 1/2: OK.
+1/2 Equal To 1/2: OK.
+1/2 Not Equal To 2/3: OK.
+2/3 Not Equal To 1/2: OK.
+1/2 Not Equal To 1/2: OK.
+Addition:
+1/2 + 2/3 = 7/6; should be 7/6
+Subtraction:
+1/2 - 2/3 = -1/6; should be -1/6
+Multiplication:
+1/2 * 2/3 = 1/3; should be 1/3
+Division:
+1/2 / 2/3 = 3/4; should be 3/4
+Add and Assign:
+3/4 += 2/3 = 17/12; should be 17/12
+Subtract and Assign:
+3/4 -= 2/3 = 1/12; should be 1/12
+Multiply and Assign:
+3/4 *= 2/3 = 1/2; should be 1/2
+Divide and Assign:
+3/4 /= 2/3 = 9/8; should be 9/8
+Test of Double Conversion Operator:
+2/3 = 0.666667; should be 0.666667
+Test of Assign an Integer:
+Three = 3/1; should be 3/1
+Test of Assign a Rational:
+anotherTwoThirds = 2/3; should be 2/3
+Test input streaming:
+Enter a rational (zero quits): 4/0
+Floating exception (core dumped)
+[4makka[24m:[1m~/CS1521/labs/lab6/src/build[0m% exit
+exit
+
+Script done on Mon 16 Nov 2015 04:03:23 PM CST

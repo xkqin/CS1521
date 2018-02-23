@@ -1,0 +1,69 @@
+#ifndef _ARRAY_SET
+#define _ARRAY_SET
+
+#include "SetInterface.h"
+
+/** @class ArraySet ArraySet.h "ArraySet.h"
+ *
+ *  Specification of an array-based ADT bag. */
+template <typename ItemType>
+class ArraySet : public SetInterface<ItemType> {
+ private:
+  /** Maximum capacity of this bag. */
+  static const int DEFAULT_CAPACITY = 6;
+
+  /** Data storage. */
+  ItemType items[DEFAULT_CAPACITY];
+
+  /** Number of items in this bag. */
+  int itemCount;
+
+  /** Maximum capacity of this bag. */
+  int maxItems;
+
+  /** Gets the index of target in the array 'items' in this bag.
+   *
+   * @param target The ItemType value to retrieve the index of.
+   *
+   * @return The index of the element in the array 'items' that
+   *         contains 'target' or -1 if the array does not contain
+   *         'target'. */
+  int getIndexOf(const ItemType& target) const;
+
+ public:
+  /** Default constructor. */
+  ArraySet();
+
+  int getCurrentSize() const;
+
+  bool isEmpty() const;
+
+  bool add(const ItemType& newEntry);
+
+  bool remove(const ItemType& anEntry);
+
+  void clear();
+
+  int getFrequencyOf(const ItemType& anEntry) const;
+
+  bool contains(const ItemType& anEntry) const;
+
+  vector<ItemType> toVector() const;
+  /** find difference between the two ArraySet ADT
+   *
+   *  @pre the class it pass maust be the same ADT which is ArraySet
+   *
+   *  @post if successful, the difference between the 2 ADT will store in
+   *        another same ADT which is the ArraySet
+   *
+   *  @param a type of ArraySet
+   *
+   *  @return The ArraySet template which contain the difference items*/
+
+  ArraySet<ItemType> difference(const ArraySet& bag);
+
+};
+
+#include "ArraySet.cpp"
+
+#endif

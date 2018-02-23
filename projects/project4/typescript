@@ -1,0 +1,533 @@
+Script started on Mon 26 Oct 2015 04:08:58 PM CDT
+[4makka[24m:[1m~/CS1521/projects/project4[0m% pwd
+/home/csugrads/qinxx215/CS1521/projects/project4
+[4makka[24m:[1m~/CS1521/projects/project4[0m% ls -l
+total 60
+drwxrwxr-x 3 qinxx215 qinxx215 4096 Oct 26 16:08 build
+-rw-rw-r-- 1 qinxx215 qinxx215  154 Oct 17 22:27 CMakeLists.txt
+-rw-rw-r-- 1 qinxx215 qinxx215  148 Oct 17 22:30 dividzero.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  383 Oct 17 22:29 dividzero.h
+-rw-rw-r-- 1 qinxx215 qinxx215 2646 Oct 21 14:03 infix.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215 1868 Oct 26 16:06 infix.h
+-rw-rw-r-- 1 qinxx215 qinxx215 2099 Oct 26 16:08 LinkedStack.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  602 Oct 13 20:59 LinkedStack.h
+-rw-rw-r-- 1 qinxx215 qinxx215  704 Oct 20 15:35 main.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  775 Oct 17 15:10 Node.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  424 Oct 17 15:10 Node.h
+-rw-rw-r-- 1 qinxx215 qinxx215  234 Oct 17 21:38 PrecondViolateExcep.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  297 Oct 17 21:39 PrecondViolateExcep.h
+-rw-rw-r-- 1 qinxx215 qinxx215 1217 Oct 13 20:59 StackInterface.h
+-rw-rw-r-- 1 qinxx215 qinxx215   39 Oct 17 23:09 test.dat
+-rw-rw-r-- 1 qinxx215 qinxx215    0 Oct 26 16:08 typescript
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cat CMakeLists.txt 
+project(cla)
+
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11 ")
+
+add_executable(test main.cpp infix.cpp  PrecondViolateExcep.cpp dividzero.cpp)[4makka[24m:[1m~/CS1521/projects/project4[0m% cat main.cpp 
+#include<iostream>
+#include<string>
+#include"infix.h"
+bool check(string tocheck);
+using namespace std;
+
+int main()
+{
+  string exp;
+  infix infixString;
+  cout << "Enter the claculation that you want, and enter 'stop'  to exit " << endl;
+  while(getline(cin,exp) && check(exp)){
+  infixString.setString(exp);
+    try{
+	cout << infixString.getString()<<" = "<< infixString.value()<<endl;
+      }
+      catch(const dividzero& e)
+	{
+	  cout << infixString.getString() << " "<<e.what()<<endl;
+	}
+      catch(const PrecondViolateExcep& e)
+	{
+	  cout << e.what() << endl;
+	}
+  
+  }
+}
+
+bool check (string tocheck)
+{
+  return !(tocheck[0] == 's' && tocheck[1] == 't' && tocheck[2] == 'o' && tocheck[3] == 'p');
+}
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cat L[KL
+LinkedStack.cpp  LinkedStack.h    
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cat LinkedStack.h
+#ifndef _LINKED_STACK
+#define _LINKED_STACK
+
+#include "StackInterface.h"
+#include "Node.h"
+
+/** @class LinkedStack LinkedStack.h "LinkedStack.h"
+ *
+ *  Specification of a pointer-based ADT stack. */
+template <typename ItemType>
+class LinkedStack : public StackInterface<ItemType> {
+ private:
+  Node<ItemType>* topPtr;
+
+ public:
+  LinkedStack();
+
+  LinkedStack(const LinkedStack<ItemType>& aStack);
+
+  virtual ~LinkedStack();
+
+  virtual bool isEmpty() const;
+
+  virtual bool push(const ItemType& newEntry);
+
+  virtual bool pop();
+
+  virtual ItemType peek() const;
+};
+
+#include "LinkedStack.cpp"
+
+#endif
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cat l[KL
+LinkedStack.cpp  LinkedStack.h    
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cat LinkedStack.cpp
+
+#include <new>
+
+using namespace std;
+
+#include "PrecondViolateExcep.h"
+template <typename ItemType>
+LinkedStack<ItemType>::LinkedStack()
+  : topPtr(nullptr) {
+}
+
+template <typename ItemType>
+LinkedStack<ItemType>::LinkedStack(const LinkedStack<ItemType>& aStack) {
+
+  if (aStack.topPtr == nullptr) {
+    topPtr = nullptr;
+  }
+  else {
+    Node<ItemType>* origChainPtr = aStack.topPtr;
+
+    try {
+      topPtr = new Node<ItemType>();
+      topPtr->setItem(origChainPtr->getItem() );
+
+      Node<ItemType>* newChainPtr = topPtr;
+
+      origChainPtr = origChainPtr->getNext();
+
+      while (origChainPtr != nullptr) {
+	ItemType nextItem = origChainPtr->getItem();
+
+	Node<ItemType>* newNodePtr = new Node<ItemType>(nextItem);
+
+	newChainPtr->setNext(newNodePtr);
+
+	newChainPtr = newChainPtr->getNext();
+
+	origChainPtr = origChainPtr->getNext();
+      }
+
+      newChainPtr->setNext(nullptr);
+    }
+    catch(const bad_alloc&) {
+      while (!isEmpty() ) {
+	pop();
+      }
+      throw;
+    }
+  }
+}
+
+template <typename ItemType>
+LinkedStack<ItemType>::~LinkedStack() {
+
+  while (!isEmpty() ) {
+    pop();
+  }
+}
+
+template <typename ItemType>
+bool LinkedStack<ItemType>::isEmpty() const {
+
+  return topPtr == nullptr;
+}
+
+template <typename ItemType>
+bool LinkedStack<ItemType>::push(const ItemType& newItem) {
+
+  bool result = true;
+
+  try {
+    Node<ItemType>* newNodePtr = new Node<ItemType>(newItem, topPtr);
+
+    topPtr = newNodePtr;
+
+    newNodePtr = nullptr;
+  }
+  catch(const bad_alloc&) {
+    result = false;
+  }
+
+  return result;
+}
+
+template <typename ItemType>
+bool LinkedStack<ItemType>::pop() {
+
+  bool result = false;
+
+  if (!isEmpty() ) {
+    Node<ItemType>* nodeToDeletePtr = topPtr;
+
+    topPtr = topPtr->getNext();
+
+    nodeToDeletePtr->setNext(nullptr);
+    delete nodeToDeletePtr;
+    nodeToDeletePtr = nullptr;
+
+    result = true;
+  }
+
+  return result;
+}
+
+template <typename ItemType>
+ItemType LinkedStack<ItemType>::peek() const {
+
+  if(isEmpty())
+    {
+      throw PrecondViolateExcep ("You enter a wrong input or you didn't match the parenthsis ");
+    }
+  return topPtr->getItem();
+}
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cat i[KP
+PrecondViolateExcep.cpp  PrecondViolateExcep.h    
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cat PrecondViolateExcep.h
+#ifndef _PRECOND_VIOLATED_EXCEP
+#define _PRECOND_VIOLATED_EXCEP
+
+#include <stdexcept>
+#include <string>
+using namespace std;
+class PrecondViolateExcep : public logic_error
+{
+ public:
+  explicit PrecondViolateExcep(const string& message = "");
+
+  virtual ~PrecondViolateExcep() noexcept;
+};
+#endif
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cat P
+PrecondViolateExcep.cpp  PrecondViolateExcep.h    
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cat PrecondViolateExcep.cpp
+#include <string>
+#include <stdexcept>
+#include "PrecondViolateExcep.h"
+
+PrecondViolateExcep::PrecondViolateExcep(const string& message)
+  : logic_error(message.c_str() ) {
+}
+
+PrecondViolateExcep::~PrecondViolateExcep()
+noexcept { 
+}
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cat d
+dividzero.cpp  dividzero.h    
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cat dividzero.h
+#ifndef _DIVID_ZERO
+#define _DIVID_ZERO
+
+#include <stdexcept>
+#include <string>
+
+using namespace std;
+
+/** @class dividZero dividZero.h "dividZero.h"
+ *
+ *  Specification for an object thrown on violation of precondition. */
+class dividzero : public overflow_error {
+ public:
+
+  explicit dividzero(const string& message = "");
+
+  virtual ~dividzero() noexcept; //throw();
+};
+
+#endif
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cat d
+dividzero.cpp  dividzero.h    
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cat dividzero.cpp
+#include "dividzero.h"
+
+dividzero::dividzero(const string& message)
+  : overflow_error(message.c_str() ) {
+}
+
+dividzero::~dividzero()
+noexcept { 
+}
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cat i
+infix.cpp  infix.h    
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cat infix.c[Kh
+#ifndef _INFIX
+#define _INFIX
+#include "LinkedStack.h"
+#include "PrecondViolateExcep.h"
+#include "dividzero.h"
+#include <string>
+/** @class infix infix.h "infix.h"
+ *
+ *  Definition of infix class. */
+
+
+class infix{
+ private:
+  /** private data member */
+  string infixString;
+  /** See whether this char is a left parenthese
+   *
+   * @param a the character of the string
+   *
+   * @return True if the character is the left parenthese.*/
+  bool isLeft(const char a) const;
+  /** See whether this char is a right parenthese
+   *  
+   *  @param a the character of the string
+   *
+   * @return True if the character is the left parenthese.*/
+  bool isRight(const char a) const;
+  /** See whether this char is a operator
+   *
+   * @param a the character of the string
+   *
+   * @return True if the character is the left parenthese.*/
+  bool isOperator(const char a) const;
+  /** comparing the operator precedence 
+   *
+   *  @param a the character of the string opr the opreator in the operator stack
+   *
+   *  @retrun Ture if the precedence of  'a' is smaller than the opr*/ 
+  bool precedence(const char a, const char opr) const;
+  /** calculating the value by using the operator stack and the value stack
+   *
+   *  @pre if the opr is '/' the second value stack should not be 0 because 1/0 is infinity
+   *
+   *  @param value the vlues stack and the operator stack opr
+   *
+   *  @throws dividbyzero If the precondition is violated.*/
+  void execute(LinkedStack<int>& value, LinkedStack<char>& opr);
+
+ public:
+  /** constructor */
+  infix();
+  /** mutator of the private data member. */
+  void setString(const string theString);
+  /** getter of the Pricate data member. */
+  string getString() const ;
+  /** calculating the result of the value which was inputed in the program.
+   *
+   *  @return the result of the calculation. */
+  int value();
+
+
+
+};
+    
+  
+#endif
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cat i
+infix.cpp  infix.h    
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cat infix.cpp
+#include <iostream>
+#include "infix.h"
+#include "PrecondViolateExcep.h"
+infix::infix()
+  :infixString("")
+{
+}
+
+
+void infix::setString(const string theString)
+{
+  infixString = theString;
+}
+
+
+string infix::getString() const
+{
+  return infixString;
+}
+
+
+bool infix::isLeft(const char a) const 
+{
+  return ( a == '(' );
+}
+
+
+bool infix::isRight(const char a) const
+{
+  return ( a == ')' );
+}
+
+
+bool infix::isOperator(const char a) const
+{
+  return ( a== '+' || a == '-' || a == '*' || a == '/' );
+}
+
+
+bool infix::precedence(const char a, const char opr) const
+{
+  string first = "/*";
+  string second = "+-";
+  string third = "()";
+  bool p;
+
+  if(((first[0] == opr||first[1] == opr) && (first[0] == a||first[1] == a))
+     || ((second[0] == opr||second[1] == opr) && (second[0] == a||second[1] == a))
+     || ((third[0] == opr||third[1] == opr) && (third[0] == a||third[1] == a)))
+    {
+      p = true;
+    }
+  else if(first[0] == opr||first[1] == opr)
+    {
+      p = true;
+    }
+  else if((second[0] == opr || second[1] == opr) &&(third[0] == a||third[1] ==a) )
+    {
+      p = true;
+    }
+  else p = false;
+
+  return p;
+}
+
+
+void infix::execute(LinkedStack<int>& value, LinkedStack<char>& opr)
+{
+  int operand2 = value.peek();
+  value.pop();
+  int operand1 = value.peek();
+  value.pop();
+  char oprt = opr.peek();
+  opr.pop();
+  switch(oprt)
+    {
+    case '+':
+      value.push(operand1+operand2);
+      break;
+    case '-':
+      value.push(operand1-operand2);
+      break;
+    case '*':
+      value.push(operand1*operand2);
+      break;
+    case '/':
+      if(operand2 == 0)
+	{
+	  throw dividzero("Infinite result - Cannot handle division-by-zero.");
+	}
+      value.push(operand1/operand2);
+      break;
+    default:
+      cout << "You enter a wrong operator " << endl;
+      break;
+    }
+   
+     
+} 
+      
+
+int infix::value()
+{
+  LinkedStack<int> value;
+  LinkedStack<char> opr;
+  for(char ch:infixString)
+    {
+      if((int)ch >=48&&(int)ch <=57 )
+	{
+	  value.push((int)ch - 48);
+	}
+      else if(isLeft(ch))
+	{
+	  opr.push(ch);
+	}
+      else if(isOperator(ch))
+	{
+	  if(opr.isEmpty()|| (!precedence(ch,opr.peek())))
+	    {
+	      opr.push(ch);
+	    }
+	  else{
+	    while ((!opr.isEmpty()) && precedence(ch,opr.peek()))
+	      {
+		execute(value,opr);
+	      }
+	    opr.push(ch);
+	  }
+	}
+      else if(isRight(ch))
+	{
+	      
+	  while(opr.peek() != '(')
+	    {
+	      execute(value,opr);
+	    }
+	  opr.pop();
+	}
+      //      else// if(opr.peek() != ' ')
+	//	{
+	//        throw PrecondViolateExcep("this is a wrong operator");	      
+      //	} 
+   }
+  while( !opr.isEmpty() )
+    {
+      execute(value,opr);
+    }
+
+  return value.peek();
+}
+[4makka[24m:[1m~/CS1521/projects/project4[0m% cd build
+[4makka[24m:[1m~/CS1521/projects/project4/build[0m% make clean
+[4makka[24m:[1m~/CS1521/projects/project4/build[0m% make
+[ 25%] [32mBuilding CXX object CMakeFiles/test.dir/main.cpp.o
+[0m[ 50%] [32mBuilding CXX object CMakeFiles/test.dir/infix.cpp.o
+[0m[ 75%] [32mBuilding CXX object CMakeFiles/test.dir/PrecondViolateExcep.cpp.o
+[0m[100%] [32mBuilding CXX object CMakeFiles/test.dir/dividzero.cpp.o
+[0m[31m[1mLinking CXX executable test
+[0m[100%] Built target test
+[4makka[24m:[1m~/CS1521/projects/project4/build[0m% ./test
+Enter the claculation that you want, and enter 'stop'  to exit 
+2 + 3
+2 + 3 = 5
+2? /3
+2/3 = 0
+(2+3
+You enter a wrong input or you didn't match the parenthsis 
+stop
+[4makka[24m:[1m~/CS1521/projects/project4/build[0m% ./test < test.dat
+Enter the claculation that you want, and enter 'stop'  to exit 
+( 2 + 3 ) = 5
+( 2 + 5 ) * 4 = 28
+( 2 + 3 ) + ( 2 * ( 5 + 6 ) ) = 27
+( 3 / 0 ) Infinite result - Cannot handle division-by-zero.
+ 3 * 2 = 6
+[4makka[24m:[1m~/CS1521/projects/project4/build[0m% ./test < test2.dat
+Enter the claculation that you want, and enter 'stop'  to exit 
+ 7 * 2 + 2 = 16
+ 8 + 2 * 3 = 14
+ 8 - 7 * ( 2 + 4 ) = -34
+[4makka[24m:[1m~/CS1521/projects/project4/build[0m% exit
+exit
+
+Script done on Mon 26 Oct 2015 04:11:20 PM CDT

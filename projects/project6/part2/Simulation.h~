@@ -1,0 +1,39 @@
+#ifndef _SIMULATION
+#define _SIMULATION
+
+#include "Event.h"
+#include "EventBuilder.h"
+#include "LinkedQueue.h"
+#include "PriorityQueue.h"
+#include "Statistics.h"
+
+class Simulation {
+private:
+   Event currentEvent;
+   //   Event temp;
+   EventBuilder eventBuilder;
+   LinkedQueue<Event> line1;
+   LinkedQueue<Event> line2;
+   LinkedQueue<Event> line3;
+   //   LinkedQueue<Event>* smallest;
+   PriorityQueue<Event> events;
+   PriorityQueue<Event> events1;
+
+   //   PriorityQueue<Event> events1;
+
+   Statistics stats;
+   int pickLine(LinkedQueue<Event> a,LinkedQueue<Event> b, LinkedQueue<Event> c);
+   void processArrival();
+   void processDeparture();
+   void processDeparture(Event temp);
+
+   //   int numberOfSmall();
+   int pickedLine();
+   int number;
+public:
+   Simulation();
+   ~Simulation();
+   void simulate();
+};
+
+#endif

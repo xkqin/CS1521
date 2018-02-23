@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/csugrads/qinxx215/CS1521/projects/project2/ArrayInterface.h
+vector
+-
+
+/home/csugrads/qinxx215/CS1521/projects/project2/BagOfArray.cpp
+
+/home/csugrads/qinxx215/CS1521/projects/project2/BagOfArray.h
+ArrayInterface.h
+/home/csugrads/qinxx215/CS1521/projects/project2/ArrayInterface.h
+cstdlib
+-
+BagOfArray.cpp
+/home/csugrads/qinxx215/CS1521/projects/project2/BagOfArray.cpp
+
+/home/csugrads/qinxx215/CS1521/projects/project2/main.cpp
+iostream
+-
+string
+-
+cstdlib
+-
+BagOfArray.h
+/home/csugrads/qinxx215/CS1521/projects/project2/BagOfArray.h
+

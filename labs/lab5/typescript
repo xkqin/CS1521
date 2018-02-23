@@ -1,0 +1,154 @@
+Script started on Tue 03 Nov 2015 01:43:44 PM CST
+[4makka[24m:[1m~/CS1521/labs/lab5[0m% pwd
+/home/csugrads/qinxx215/CS1521/labs/lab5
+[4makka[24m:[1m~/CS1521/labs/lab5[0m% ls -l
+total 64
+drwxrwxr-x 3 qinxx215 qinxx215 4096 Nov  3 13:43 build
+-rw-rw-r-- 1 qinxx215 qinxx215  145 Nov  3 13:36 CMakeLists.txt
+-rw-rw-r-- 1 qinxx215 qinxx215  623 Nov  3 13:42 isPalindrome.cpp
+-rw-r--r-- 1 qinxx215 qinxx215   90 Nov  3 13:38 #isPalindrome.h#
+-rw-r--r-- 1 qinxx215 qinxx215   95 Nov  3 13:28 isPalindrome.h
+-rw-rw-r-- 1 qinxx215 qinxx215 2315 Nov  3 13:29 LinkedQueue.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  643 Nov  3 13:29 LinkedQueue.h
+-rw-rw-r-- 1 qinxx215 qinxx215 2002 Nov  3 13:30 LinkedStack.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  602 Nov  3 13:30 LinkedStack.h
+-rw-r--r-- 1 qinxx215 qinxx215 1419 Nov  3 13:28 main.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  775 Nov  3 13:33 Node.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  424 Nov  3 13:33 Node.h
+-rw-rw-r-- 1 qinxx215 qinxx215  211 Nov  3 13:34 PrecondViolatedExcep.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  470 Nov  3 13:34 PrecondViolatedExcep.h
+-rw-rw-r-- 1 qinxx215 qinxx215 1275 Nov  3 13:31 QueueInterface.h
+-rw-rw-r-- 1 qinxx215 qinxx215 1217 Nov  3 13:31 StackInterface.h
+-rw-rw-r-- 1 qinxx215 qinxx215    0 Nov  3 13:43 typescript
+[4makka[24m:[1m~/CS1521/labs/lab5[0m% cat CMakeLists.txt 
+project(lab5)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
+add_executable(test main.cpp isPalindrome.cpp PrecondViolatedExcep.cpp)[4makka[24m:[1m~/CS1521/labs/lab5[0m% s[Kcat -n i
+isPalindrome.cpp  isPalindrome.h    
+[4makka[24m:[1m~/CS1521/labs/lab5[0m% cat -n isPalindrome.h
+     1	#ifndef _IS_PALINDROME
+     2	#define _IS_PALINDROME
+     3	
+     4	bool isPalindrome(const string&);
+     5	
+     6	#endif
+[4makka[24m:[1m~/CS1521/labs/lab5[0m% cat -n i
+isPalindrome.cpp  isPalindrome.h    
+[4makka[24m:[1m~/CS1521/labs/lab5[0m% cat -n isPalindrome.cpp
+     1	#include<string>
+     2	#include<iostream>
+     3	
+     4	#include "LinkedQueue.h"
+     5	#include "LinkedStack.h"
+     6	#include "isPalindrome.h"
+     7	using namespace std;
+     8	
+     9	bool isPalindrome(const string& theString)
+    10	{
+    11	  char ans;
+    12	  LinkedQueue<char> Queue;
+    13	  LinkedStack<char> Stack;
+    14	  
+    15	  bool isPal = true;
+    16	  int size = theString.length();
+    17	  for(int i=0; i< size ; ++i)
+    18	    { 
+    19	      ans=theString[i];
+    20	      Queue.enqueue(ans);
+    21	      Stack.push(ans);
+    22	    }
+    23	 
+    24	  for(int i=0; i < size ; ++i)
+    25	    {   
+    26	      if(Queue.peekFront() == Stack.peek())
+    27		{ 
+    28		  Stack.pop();
+    29		  Queue.dequeue();
+    30		}
+    31	      else
+    32		{
+    33		  isPal = false;
+    34		  break;
+    35		}
+    36	    } 
+    37	
+    38	  return isPal;    
+    39	}
+[4makka[24m:[1m~/CS1521/labs/lab5[0m% cat -n a[Kmain.cpp
+     1	#include <iostream>
+     2	#include <string>
+     3	#include <vector>
+     4	#include <cstdlib>
+     5	
+     6	using namespace std;
+     7	
+     8	#include "isPalindrome.h"
+     9	
+    10	int main() {
+    11	
+    12	   vector<string> strVec = { "",
+    13	                             "a",
+    14	                             "aba",
+    15	                             "abba",
+    16	                             "deleveled",
+    17	                             "a man a plan a canal panama",
+    18	                             "ab",
+    19	                             "abbc" };
+    20	
+    21	   for (vector<string>::iterator vIter = strVec.begin();
+    22	        vIter != strVec.end();
+    23	        ++vIter) {
+    24	
+    25	      // Get the current string from the vector:
+    26	      string currStr = *vIter;
+    27	
+    28	      // Initialize a clean string to empty:
+    29	      string clean = "";
+    30	
+    31	      // Iterate over the string currStr and remove all space characters:
+    32	      for (string::iterator sIter = currStr.begin();
+    33	           sIter != currStr.end();
+    34	           ++sIter) {
+    35	
+    36	         if (*sIter != ' ') {
+    37	            clean += *sIter;
+    38	         }
+    39	      }
+    40	
+    41	      // Test and report whether the string in clean is a palindrome:
+    42	      if (isPalindrome(clean) ) {
+    43	         cout << "YES "
+    44	              << clean
+    45	              << " is a palindrome."
+    46	              << endl;
+    47	      }
+    48	      else {
+    49	         cout << "NO "
+    50	              << clean
+    51	              << " is not a palindrome."
+    52	              << endl;
+    53	      }
+    54	   }
+    55	
+    56	   return EXIT_SUCCESS;
+    57	}
+[4makka[24m:[1m~/CS1521/labs/lab5[0m% cd build
+[4makka[24m:[1m~/CS1521/labs/lab5/build[0m% make
+[ 33%] [32mBuilding CXX object CMakeFiles/test.dir/main.o
+[0m[ 66%] [32mBuilding CXX object CMakeFiles/test.dir/isPalindrome.o
+[0m[100%] [32mBuilding CXX object CMakeFiles/test.dir/PrecondViolatedExcep.o
+[0m[31m[1mLinking CXX executable test
+[0m[100%] Built target test
+[4makka[24m:[1m~/CS1521/labs/lab5/build[0m% ,.[K[K./test
+YES  is a palindrome.
+YES a is a palindrome.
+YES aba is a palindrome.
+YES abba is a palindrome.
+YES deleveled is a palindrome.
+YES amanaplanacanalpanama is a palindrome.
+NO ab is not a palindrome.
+NO abbc is not a palindrome.
+[4makka[24m:[1m~/CS1521/labs/lab5/build[0m% exit
+exit
+
+Script done on Tue 03 Nov 2015 01:44:38 PM CST

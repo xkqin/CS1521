@@ -1,0 +1,67 @@
+Script started on Thu 03 Sep 2015 09:59:10 PM CDT
+[4makka[24m:[1m~/CS1521/labs/lab1[0m% pwd
+/home/csugrads/qinxx215/CS1521/labs/lab1
+[4makka[24m:[1m~/CS1521/labs/lab1[0m% ls -lR ~/
+/home/csugrads/qinxx215/:
+total 4
+drwxrwxr-x 3 qinxx215 qinxx215 4096 Sep  2 11:21 CS1521
+
+/home/csugrads/qinxx215/CS1521:
+total 4
+drwxrwxr-x 3 qinxx215 qinxx215 4096 Sep  2 11:21 labs
+
+/home/csugrads/qinxx215/CS1521/labs:
+total 4
+drwxrwxr-x 3 qinxx215 qinxx215 4096 Sep  3 21:59 lab1
+
+/home/csugrads/qinxx215/CS1521/labs/lab1:
+total 40
+-rw-r--r-- 1 qinxx215 qinxx215 2029 Sep  2 11:27 board.cpp
+-rw-r--r-- 1 qinxx215 qinxx215 2374 Sep  2 11:30 board.h
+drwxrwxr-x 2 qinxx215 qinxx215 4096 Sep  3 21:58 build
+-rw-rw-r-- 1 qinxx215 qinxx215  146 Sep  2 19:13 CMakeLists.txt
+-rw-r--r-- 1 qinxx215 qinxx215 2176 Sep  2 11:30 game.cpp
+-rw-r--r-- 1 qinxx215 qinxx215 1766 Sep  3 13:12 game.h
+-rw-r--r-- 1 qinxx215 qinxx215 1767 Sep  2 11:30 game.h~
+-rw-r--r-- 1 qinxx215 qinxx215  474 Sep  2 11:30 main.cpp
+-rw-r--r-- 1 qinxx215 qinxx215  815 Sep  2 11:30 player.cpp
+-rw-r--r-- 1 qinxx215 qinxx215 1167 Sep  2 11:30 player.h
+-rw-rw-r-- 1 qinxx215 qinxx215    0 Sep  3 21:59 typescript
+
+/home/csugrads/qinxx215/CS1521/labs/lab1/build:
+total 0
+[4makka[24m:[1m~/CS1521/labs/lab1[0m% cat -n CMke[K[KakeLists.txt
+     1	
+     2	project(TicTacToe)
+     3	
+     4	set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
+     5	
+     6	add_executable(tictactoe board.cpp game.cpp main.cpp player.cpp)[4makka[24m:[1m~/CS1521/labs/lab1[0m% s[Kcd build
+[4makka[24m:[1m~/CS1521/labs/lab1/build[0m% camke ..
+camke: Command not found.
+[4makka[24m:[1m~/CS1521/labs/lab1/build[0m% came[Kk[K[K[Kmake ..
+-- The C compiler identification is GNU 4.8.4
+-- The CXX compiler identification is GNU 4.8.4
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/csugrads/qinxx215/CS1521/labs/lab1/build
+[4makka[24m:[1m~/CS1521/labs/lab1/build[0m% make
+[35m[1mScanning dependencies of target tictactoe
+[0m[ 25%] [32mBuilding CXX object CMakeFiles/tictactoe.dir/board.cpp.o
+[0m[ 50%] [32mBuilding CXX object CMakeFiles/tictactoe.dir/game.cpp.o
+[0m[ 75%] [32mBuilding CXX object CMakeFiles/tictactoe.dir/main.cpp.o
+[0m[100%] [32mBuilding CXX object CMakeFiles/tictactoe.dir/player.cpp.o
+[0m[31m[1mLinking CXX executable tictactoe
+[0m[100%] Built target tictactoe
+[4makka[24m:[1m~/CS1521/labs/lab1/build[0m% exit
+exit
+
+Script done on Thu 03 Sep 2015 10:00:19 PM CDT

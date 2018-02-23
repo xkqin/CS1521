@@ -1,0 +1,73 @@
+Script started on Mon 12 Oct 2015 03:36:29 PM CDT
+[4makka[24m:[1m~/CS1521/projects/project3[0m% cat Node .h
+#ifndef _NODE
+#define _NODE
+
+template <typename ItemType>
+class Node {
+ private:
+  ItemType item;
+  Node<ItemType>* next;
+
+ public:
+  Node();
+  Node(const ItemType& anItem);
+  Node(const ItemType& anItem,
+       Node<ItemType>* nextNodePtr);
+
+  void setItem(const ItemType& anItem);
+  void setNext(Node<ItemType>* nextNodePtr);
+
+  ItemType getItem() const;
+  Node<ItemType>* getNext() const;
+};
+
+#include "Node.cpp"
+
+#endif
+[4makka[24m:[1m~/CS1521/projects/project3[0m% cat Node.cpp
+template <typename ItemType>
+Node<ItemType>::Node()
+  : next(nullptr) {
+}
+
+template <typename ItemType>
+Node<ItemType>::Node(const ItemType& anItem)
+  : item(anItem),
+    next(nullptr) {
+    }
+
+template <typename ItemType>
+Node<ItemType>::Node(const ItemType& anItem,
+                     Node<ItemType>* nextNodePtr)
+  : item(anItem),
+    next(nextNodePtr) {
+    }
+
+template <typename ItemType>
+void Node<ItemType>::setItem(const ItemType& anItem) {
+
+  item = anItem;
+}
+
+template <typename ItemType>
+void Node<ItemType>::setNext(Node<ItemType>* nextNodePtr) {
+
+  next = nextNodePtr;
+}
+
+template <typename ItemType>
+ItemType Node<ItemType>::getItem() const {
+
+  return item;
+}
+
+template <typename ItemType>
+Node<ItemType>* Node<ItemType>::getNext() const {
+
+  return next;
+}
+[4makka[24m:[1m~/CS1521/projects/project3[0m% exit
+exit
+
+Script done on Mon 12 Oct 2015 03:36:39 PM CDT

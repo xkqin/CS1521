@@ -1,0 +1,55 @@
+#ifndef _FIND
+#define _FIND
+
+class Find 
+{
+ private:
+  /** data field*/
+   int count=0;
+   double last=0;
+   double sum=0;
+   double mean=0;
+   double min;
+   double max;
+
+ public:
+   /** defult construtor of the Find class */
+   Find();
+   /** constructor of the Find class */
+   Find(int c,double la,double su , double me, double mi, double ma);
+ 
+
+   /** Get the number of the sequences.
+    *   @return the integer number of the sequences.*/
+   double getN() const; 
+   /** Get the minimum of the sequences.
+    *   @return the decimal number of the sequences.*/
+   double getMin() const;
+   /** Get the last number of the sequences.
+    *   @return the decimal number of the sequences.*/
+   double getLast() const;
+   /** Get the max number of the sequences.
+    *   @return the decimal number of the sequences.*/
+   double getMax() const;
+   /** Get the sum of the every number in sequences.
+    *   @return the decimal number of the sequences.*/
+   double getSum() const;
+   /** Get the mean of the number of the sequences.
+    *   @return the decimal number of the sequences.*/
+   double getMean() const;
+
+
+   /** Calculating the result that respect to the requirement.
+    *   @pre the a must be a number instead of a letter or anything else.
+    *   @post if successful, the date member will store some value.
+    *   @param a the input from user.*/
+   void cal(double a);
+   /** Print every data member on the monitor.
+    *   @post if successful, the data member will display on the monitor corectly.*/
+   void print() const;
+   /** Get the input from the user.
+    *   @post if successful, it will make the user to enter whatever the number they want*/
+   void getInput();
+};
+
+#endif

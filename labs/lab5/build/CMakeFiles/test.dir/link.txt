@@ -1,0 +1,1 @@
+/usr/bin/c++    -Wall -std=c++11    CMakeFiles/test.dir/main.o CMakeFiles/test.dir/isPalindrome.o CMakeFiles/test.dir/PrecondViolatedExcep.o  -o test -rdynamic 

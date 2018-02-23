@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/csugrads/qinxx215/CS1521/labs/lab2/lab2.cpp
+lab2functions.h
+/home/csugrads/qinxx215/CS1521/labs/lab2/lab2functions.h
+iostream
+-
+
+/home/csugrads/qinxx215/CS1521/labs/lab2/lab2functions.h
+

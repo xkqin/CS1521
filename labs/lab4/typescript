@@ -1,0 +1,130 @@
+Script started on Mon 19 Oct 2015 05:48:34 PM CDT
+[4makka[24m:[1m~/CS1521/labs/lab4[0m% pwd
+/home/csugrads/qinxx215/CS1521/labs/lab4
+[4makka[24m:[1m~/CS1521/labs/lab4[0m% ls -l
+total 60
+-rw-rw-r-- 1 qinxx215 qinxx215 2406 Oct 13 15:59 ArrayList.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215 2517 Oct 13 15:57 ArrayList.cpp~
+-rw-rw-r-- 1 qinxx215 qinxx215  812 Oct 13 14:40 ArrayList.h
+drwxrwxr-x 3 qinxx215 qinxx215 4096 Oct 19 17:48 build
+-rw-rw-r-- 1 qinxx215 qinxx215  133 Oct 13 16:38 CMakeLists.txt
+-rw-rw-r-- 1 qinxx215 qinxx215  158 Oct 13 16:21 CMakeLists.txt~
+-rw-rw-r-- 1 qinxx215 qinxx215  277 Oct 13 16:31 getPosition.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  273 Oct 13 16:31 getPosition.cpp~
+-rw-rw-r-- 1 qinxx215 qinxx215  192 Oct 15 15:25 getPosition.h
+-rw-rw-r-- 1 qinxx215 qinxx215  192 Oct 13 16:14 getPosition.h~
+-rw-rw-r-- 1 qinxx215 qinxx215 2719 Oct 13 14:39 ListInterface.h
+-rw-rw-r-- 1 qinxx215 qinxx215  703 Oct 15 15:18 main.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  724 Oct 15 15:18 main.cpp~
+-rw-rw-r-- 1 qinxx215 qinxx215  211 Oct 13 16:01 PrecondViolatedExcep.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  470 Oct 13 16:02 PrecondViolatedExcep.h
+-rw-rw-r-- 1 qinxx215 qinxx215    0 Oct 19 17:48 typescript
+[4makka[24m:[1m~/CS1521/labs/lab4[0m% cat -n C
+CMakeLists.txt~  CMakeLists.txt   
+[4makka[24m:[1m~/CS1521/labs/lab4[0m% cat -n CMakeLists.txt
+     1	project (lab4)
+     2	
+     3	set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11 ")
+     4	
+     5	add_executable(test main.cpp  PrecondViolatedExcep.cpp)[4makka[24m:[1m~/CS1521/labs/lab4[0m% cat -n m
+main.cpp~  main.cpp   
+[4makka[24m:[1m~/CS1521/labs/lab4[0m% cat -n main.cpp
+     1	#include <iostream>
+     2	#include <cstdlib>
+     3	 
+     4	using namespace std;
+     5	
+     6	
+     7	#include "getPosition.h"
+     8	 
+     9	int main() {
+    10	 
+    11	   ArrayList<int> iList;
+    12	 
+    13	   iList.insert(1, 5);
+    14	   iList.insert(2, 9);
+    15	   iList.insert(1, 4);
+    16	   iList.insert(2, 7);
+    17	   iList.insert(4, 6);
+    18	
+    19	   int position = 0;
+    20	   int value = 0;
+    21	
+    22	   while (cin >> value) {
+    23	
+    24	      if ((position = getPosition(iList, value)) <= iList.getLength() ) {
+    25	         cout << "iList["
+    26	              << position
+    27	              << "] = "
+    28	              << value
+    29	              << "."
+    30	              << endl;
+    31	      }
+    32	     else {
+    33	         cout << "iList does NOT contain "
+    34	              << value
+    35	              << "."
+    36	              << endl;
+    37	      }
+    38	   }
+    39	
+    40	   return EXIT_SUCCESS;
+    41	}
+[4makka[24m:[1m~/CS1521/labs/lab4[0m% cat -n g
+getPosition.cpp~  getPosition.cpp   getPosition.h~    getPosition.h 
+[4makka[24m:[1m~/CS1521/labs/lab4[0m% cat -n getPosition.h
+     1	#ifndef _GET_POSITION
+     2	#define _GET_POSITION
+     3	
+     4	#include"ArrayList.h"
+     5	template <typename ItemType>
+     6	int getPosition(ArrayList<ItemType>& aList, ItemType value);
+     7	
+     8	#include "getPosition.cpp"
+     9	#endif
+[4makka[24m:[1m~/CS1521/labs/lab4[0m% cat -h g
+getPosition.cpp~  getPosition.cpp   getPosition.h~    getPosition.h 
+[4makka[24m:[1m~/CS1521/labs/lab4[0m% cat -h getPosition.cpp
+cat: invalid option -- 'h'
+Try 'cat --help' for more information.
+[4makka[24m:[1m~/CS1521/labs/lab4[0m% cat -n g
+getPosition.cpp~  getPosition.cpp   getPosition.h~    getPosition.h 
+[4makka[24m:[1m~/CS1521/labs/lab4[0m% cat -n getPosition.cpp
+     1	template <typename ItemType>
+     2	int getPosition(ArrayList<ItemType>& aList, ItemType  value)
+     3	{
+     4	  int position = aList.getLength() + 1;
+     5	  for(int i=1; i <= aList.getLength(); ++i)
+     6	    {
+     7	      if(value == aList.getEntry(i))
+     8		{
+     9		  position = i;
+    10		}
+    11		
+    12	    }
+    13	
+    14	  return position;
+    15	}
+    16	    
+[4makka[24m:[1m~/CS1521/labs/lab4[0m% cd build
+[4makka[24m:[1m~/CS1521/labs/lab4/build[0m% make
+[35m[1mScanning dependencies of target test
+[0m[ 50%] [32mBuilding CXX object CMakeFiles/test.dir/main.cpp.o
+[0m[100%] [32mBuilding CXX object CMakeFiles/test.dir/PrecondViolatedExcep.cpp.o
+[0m[31m[1mLinking CXX executable test
+[0m[100%] Built target test
+[4makka[24m:[1m~/CS1521/labs/lab4/build[0m% ls
+a  CMakeCache.txt  CMakeFiles  cmake_install.cmake  Makefile  test  values.dat
+[4makka[24m:[1m~/CS1521/labs/lab4/build[0m% test [K[K[K[K./test < values.dat
+iList does NOT contain 0.
+iList[2] = 7.
+iList[1] = 4.
+iList does NOT contain 2.
+iList[5] = 9.
+iList[3] = 5.
+iList[4] = 6.
+iList does NOT contain 8.
+[4makka[24m:[1m~/CS1521/labs/lab4/build[0m% exit
+exit
+
+Script done on Mon 19 Oct 2015 05:50:23 PM CDT

@@ -1,0 +1,3 @@
+/home/csugrads/qinxx215/CS1521/projects/project1/build/CMakeFiles/edit_cache.dir
+/home/csugrads/qinxx215/CS1521/projects/project1/build/CMakeFiles/rebuild_cache.dir
+/home/csugrads/qinxx215/CS1521/projects/project1/build/CMakeFiles/test.dir

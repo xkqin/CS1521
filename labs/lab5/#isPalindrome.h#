@@ -1,0 +1,6 @@
+#ifndef _IS_PALINDROME
+#define _IS_PALINDROME
+
+bool isPalindrome(const string& );
+
+#endif

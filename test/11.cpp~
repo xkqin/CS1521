@@ -1,0 +1,13 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+  void print(int i=1)
+  {
+    if(i<=5)
+      {
+	cout << i;
+	print(i++);
+      }
+  }
+}

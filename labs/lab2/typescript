@@ -1,0 +1,182 @@
+Script started on Mon 21 Sep 2015 04:14:07 PM CDT
+[4makka[24m:[1m~/CS1521/labs/lab2[0m% pwd
+/home/csugrads/qinxx215/CS1521/labs/lab2
+[4makka[24m:[1m~/CS1521/labs/lab2[0m% k[Kls -l
+total 36
+drwxrwxr-x 3 qinxx215 qinxx215 4096 Sep 21 16:14 build
+-rw-rw-r-- 1 qinxx215 qinxx215  124 Sep 15 16:27 CMakeLists.txt
+-rw-rw-r-- 1 qinxx215 qinxx215  107 Sep 15 16:24 CMakeLists.txt~
+-rw-rw-r-- 1 qinxx215 qinxx215 1133 Sep 21 16:08 lab2.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215 1125 Sep 21 16:07 lab2.cpp~
+-rw-rw-r-- 1 qinxx215 qinxx215  704 Sep 21 16:05 lab2functions.cpp
+-rw-rw-r-- 1 qinxx215 qinxx215  675 Sep 21 16:02 lab2functions.cpp~
+-rw-rw-r-- 1 qinxx215 qinxx215  188 Sep 21 16:02 lab2functions.h
+-rw-rw-r-- 1 qinxx215 qinxx215  182 Sep 21 15:57 lab2functions.h~
+-rw-rw-r-- 1 qinxx215 qinxx215    0 Sep 21 16:14 typescript
+[4makka[24m:[1m~/CS1521/labs/lab2[0m% cat C
+CMakeLists.txt~  CMakeLists.txt   
+[4makka[24m:[1m~/CS1521/labs/lab2[0m% cat CMakeLists.txt
+project(write)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
+add_executable(test lab2functions.cpp
+  lab2.cpp)[4makka[24m:[1m~/CS1521/labs/lab2[0m% cat lab2.cpp
+#include "lab2functions.h"
+#include <iostream>
+using namespace std;
+int main()
+{
+   cout << "Test writeLine" << endl;
+   writeLine( '@', 3);
+   writeLine( '*', 3);
+   cout << endl;
+   writeLine( '*', -2);
+   writeLine( '*', 0);
+   writeLine( '*', 1);
+   cout << endl;
+   writeLine( '&', 2);
+   cout << endl;
+   writeLine( '@', 4);
+   cout << endl;
+   cout << "Test write Block " << endl;
+   writeBlock( '#', 4, 1);
+   writeBlock( '%', 4, 1);
+   cout << endl;
+   cout << "Test Block with a negative number of lines "<<endl;
+   writeBlock( '*', -2, -1);
+   writeBlock( '*', 0, -2);
+   writeBlock( '*', 1, -2);
+   writeBlock( '*', 3, -2);
+   cout << "Test Block with zero number of lines " << endl;
+   writeBlock( '*', -2, 0);
+   writeBlock( '*', 0, 0);
+   writeBlock( '*', 1, 0);
+   writeBlock( '*', 3, 0);
+   cout << "Test Block with positive number of lines ";
+   writeBlock( '*', -2, 3);
+   writeBlock( '*', 0, 3);
+   cout << endl;
+   writeBlock( '*', 1, 3);
+   cout << endl;
+   writeBlock( '*', 4, 3);
+   cout << endl;
+   cout << "Test the Pyramid " << endl;
+   writePyramid(3);
+   cout << endl;
+   writePyramid(20);
+  return 0;
+}
+[4makka[24m:[1m~/CS1521/labs/lab2[0m% cat lab2f
+lab2functions.cpp~  lab2functions.cpp   lab2functions.h~    lab2functions.h 
+[4makka[24m:[1m~/CS1521/labs/lab2[0m% cat lab2functions.h
+#ifndef _LAB2FUNCTIONS
+#define _LAB2FUNCTIONS
+  void writeLine(char x, int m);
+  void writeBlock(char x, int m ,int s);
+  void writePyramid(int l);
+  void writeP(int l, int i);
+
+#endif
+  
+[4makka[24m:[1m~/CS1521/labs/lab2[0m% cat lab2f
+lab2functions.cpp~  lab2functions.cpp   lab2functions.h~    lab2functions.h 
+[4makka[24m:[1m~/CS1521/labs/lab2[0m% cat lab2functions.cpp
+#include "lab2functions.h"
+#include <iostream>
+using namespace std;
+void writeLine(const char x, const int m)
+{
+  if(m > 0) 
+    {
+      cout << x;
+      writeLine(x, m-1);
+    }
+  else cout << "";
+}
+
+
+void writeBlock(const char x, const int m, const int s)
+{
+  if(m <= 0) cout << ""; 
+  else if(s == 1)
+    {
+      writeLine(x, m);
+    }
+  else if(s > 1)
+    {
+      writeLine(x, m);
+      cout << endl;
+      writeBlock(x, m, s-1);
+    }
+  else cout << "";
+      
+}
+
+void writePyramid( int l)
+{
+   writeP(l, 0);
+}
+
+void writeP( int l, int i)
+{
+  if(l>0)
+    {
+      writeLine(' ', l-1);     
+      writeLine('*', 2*i+1);
+      i++;
+      cout << endl;
+      writeP( l-1,i );
+    }
+  else cout << "";
+}
+[4makka[24m:[1m~/CS1521/labs/lab2[0m% cd build
+[4makka[24m:[1m~/CS1521/labs/lab2/build[0m% make
+[ 50%] [32mBuilding CXX object CMakeFiles/test.dir/lab2functions.cpp.o
+[0m[100%] [32mBuilding CXX object CMakeFiles/test.dir/lab2.cpp.o
+[0m[31m[1mLinking CXX executable test
+[0m[100%] Built target test
+[4makka[24m:[1m~/CS1521/labs/lab2/build[0m% ./test
+Test writeLine
+@@@***
+*
+&&
+@@@@
+Test write Block 
+####%%%%
+Test Block with a negative number of lines 
+Test Block with zero number of lines 
+Test Block with positive number of lines 
+*
+*
+*
+****
+****
+****
+Test the Pyramid 
+  *
+ ***
+*****
+
+                   *
+                  ***
+                 *****
+                *******
+               *********
+              ***********
+             *************
+            ***************
+           *****************
+          *******************
+         *********************
+        ***********************
+       *************************
+      ***************************
+     *****************************
+    *******************************
+   *********************************
+  ***********************************
+ *************************************
+***************************************
+[4makka[24m:[1m~/CS1521/labs/lab2/build[0m% exit
+exit
+
+Script done on Mon 21 Sep 2015 04:14:59 PM CDT
